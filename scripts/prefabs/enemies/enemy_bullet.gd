@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed = 500
 @export var lifetime = 10
 
-### SYSTEM VARIABLES ###
+### SYSTEM FUNCTIONS ###
 func _process(delta):
 	# after the bullet's lifetime has ended, destroy the bullet
 	lifetime -= delta * GlobalVariables.time_scale

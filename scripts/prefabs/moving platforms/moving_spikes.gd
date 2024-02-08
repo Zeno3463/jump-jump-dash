@@ -1,6 +1,6 @@
 extends MovingPlatforms
 
-### SYSTEM VARIABLES ###
+### SYSTEM FUNCTIONS ###
 func _on_area_2d_2_body_entered(body):
 	# if player hits the spike, make the player die
 	if body is PlayerCLass:

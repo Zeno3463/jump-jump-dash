@@ -1,26 +1,57 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjx6d4v5buom6"]
+[gd_scene load_steps=17 format=3 uid="uid://cjx6d4v5buom6"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
 [ext_resource type="PackedScene" uid="uid://bio6672tqdkhw" path="res://scenes/prefabs/moving_platform.tscn" id="3_oljps"]
+[ext_resource type="PackedScene" uid="uid://c1ca80mki1hxo" path="res://scenes/prefabs/laser.tscn" id="4_5x1jl"]
 [ext_resource type="Script" path="res://scripts/game loop/Moving Platform Spawner.gd" id="4_bisks"]
-[ext_resource type="PackedScene" uid="uid://bsku70rqhvndp" path="res://scenes/prefabs/player.tscn" id="4_eg2rf"]
+[ext_resource type="PackedScene" uid="uid://bsku70rqhvndp" path="res://scenes/prefabs/player/player.tscn" id="4_eg2rf"]
 [ext_resource type="PackedScene" uid="uid://dcnes4jnid5fh" path="res://scenes/prefabs/moving_spikes.tscn" id="4_ryw41"]
 [ext_resource type="PackedScene" uid="uid://17yuadc507it" path="res://scenes/prefabs/shooter enemy/shooter_enemy.tscn" id="4_wou06"]
 [ext_resource type="Script" path="res://scripts/effects/Parallax Background.gd" id="6_mno0m"]
 [ext_resource type="Texture2D" uid="uid://dprh0kujga58g" path="res://sprites/parallax background/layer 1.png" id="7_pl4hh"]
 [ext_resource type="Texture2D" uid="uid://b4w327gpqou0u" path="res://sprites/parallax background/layer 2.png" id="8_vgvyu"]
+[ext_resource type="PackedScene" uid="uid://cpi5x0ne7qpcy" path="res://scenes/prefabs/player/player_gun.tscn" id="9_7nt0q"]
+[ext_resource type="PackedScene" uid="uid://djh4kfarf80en" path="res://scenes/prefabs/player/player_bullet.tscn" id="10_1cob8"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_iqkbc"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kkjl3"]
+normal = Vector2(0.999913, 0.0131568)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f05iu"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_alilj"]
+normal = Vector2(-0.0156231, 0.999878)
 
 [node name="Main" type="Node2D"]
 
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("4_bisks")
+moving_platforms = Array[PackedScene]([ExtResource("4_5x1jl"), ExtResource("3_oljps"), ExtResource("4_ryw41"), ExtResource("4_wou06")])
+
+[node name="Upper bound" type="Node2D" parent="Spawner"]
+position = Vector2(654, -326)
+
+[node name="Lower bound" type="Node2D" parent="Spawner"]
+position = Vector2(659, 166)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1, 249)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(76.75, 10.5)
+texture = ExtResource("1_cppkc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+scale = Vector2(76.75, 10.5)
+polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(577, 327)
+limit_smoothed = true
+position_smoothing_enabled = true
 script = ExtResource("1_bb0av")
 
 [node name="Timer" type="Timer" parent="Camera2D"]
-wait_time = 0.1
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 z_index = 1
@@ -32,93 +63,65 @@ emission_rect_extents = Vector2(10, 50)
 gravity = Vector2(0, 98)
 scale_amount_min = 0.0
 
-[node name="Walls" type="Node2D" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-position = Vector2(-2, 373)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
-rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_iqkbc")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
-position = Vector2(1153, 384)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
-rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_iqkbc")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Walls"]
-position = Vector2(718, -151)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
-position = Vector2(-171, 146)
-rotation = 3.14159
-shape = SubResource("WorldBoundaryShape2D_iqkbc")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Walls"]
-
-[node name="WhiteSquare" type="Sprite2D" parent="Walls/StaticBody2D4"]
-modulate = Color(0, 0.00784314, 0, 1)
-position = Vector2(566, 576)
-scale = Vector2(77.5, 15.375)
-texture = ExtResource("1_cppkc")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls/StaticBody2D4"]
-position = Vector2(566, 576)
-scale = Vector2(77.5, 15.375)
-polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-
-[node name="Moving Platform Spawner" type="Node2D" parent="."]
-position = Vector2(257, 4)
-script = ExtResource("4_bisks")
-moving_platforms = Array[PackedScene]([ExtResource("4_wou06"), ExtResource("3_oljps"), ExtResource("4_ryw41")])
-
-[node name="Upper bound" type="Node2D" parent="Moving Platform Spawner"]
-position = Vector2(1147, 5)
-
-[node name="Lower bound" type="Node2D" parent="Moving Platform Spawner"]
-position = Vector2(1150, 426)
-
 [node name="Player" parent="." instance=ExtResource("4_eg2rf")]
-position = Vector2(355, 314)
+position = Vector2(-8, -56)
+
+[node name="Player Gun" parent="Player" instance=ExtResource("9_7nt0q")]
+bullet = ExtResource("10_1cob8")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("6_mno0m")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-10, 36)
-motion_mirroring = Vector2(1200, 0)
+position = Vector2(-542, -281)
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1200, 500)
 
 [node name="Layer9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.992157, 0.8, 0.666667, 1)
 z_index = -2
 position = Vector2(548, 221)
 scale = Vector2(80.0313, 33.875)
 texture = ExtResource("1_cppkc")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(89, 59)
+visible = false
+position = Vector2(-325, -115)
 motion_scale = Vector2(0.7, 0.7)
 motion_mirroring = Vector2(1200, 0)
 
 [node name="Layer8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-modulate = Color(0.101961, 0.101961, 0.101961, 1)
+modulate = Color(0.105882, 0.321569, 0.34902, 1)
 z_index = -2
 position = Vector2(568, 186)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_pl4hh")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(89, 59)
+visible = false
+position = Vector2(-325, -115)
 motion_scale = Vector2(0.9, 0.9)
 motion_mirroring = Vector2(1200, 0)
 
 [node name="Layer9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-modulate = Color(0.101961, 0.101961, 0.101961, 1)
+modulate = Color(0.105882, 0.321569, 0.34902, 1)
 z_index = -2
 position = Vector2(568, 186)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_vgvyu")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-577, 70)
+shape = SubResource("WorldBoundaryShape2D_kkjl3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(580, 67)
+shape = SubResource("WorldBoundaryShape2D_f05iu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(2, -331)
+shape = SubResource("WorldBoundaryShape2D_alilj")
 
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]

@@ -7,7 +7,7 @@ extends Line2D
 ### VARIABLES ###
 var leave_tracks = true
 
-### SYSTEM VARIABLES ###
+### SYSTEM FUNCTIONS ###
 func _ready():
 	set_as_top_level(true)
 	if get_point_count() > 0: remove_point(0)

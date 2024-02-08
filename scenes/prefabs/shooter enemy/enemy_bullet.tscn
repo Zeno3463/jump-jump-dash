@@ -1,13 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://yee13ov2h3sx"]
+[gd_scene load_steps=9 format=3 uid="uid://yee13ov2h3sx"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/enemies/enemy_bullet.gd" id="1_lnrlx"]
 [ext_resource type="Texture2D" uid="uid://datkf2b5x0qjq" path="res://sprites/White Circle.png" id="2_3esvs"]
+[ext_resource type="Texture2D" uid="uid://copuqp4jbfc3d" path="res://sprites/Lightmap.png" id="3_m88is"]
+[ext_resource type="Script" path="res://scripts/prefabs/player/trail.gd" id="4_o0i04"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl42s"]
-radius = 4.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7jh1"]
 radius = 4.0
+
+[sub_resource type="Curve" id="Curve_wtnhm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_cxjtb"]
+polygon = PackedVector2Array(75, -538.7, 124, -530.7, 124, -529.5, 196, -508.5, 196, -507.3, 263, -477.3, 263, -476.1, 307, -450.1, 307, -449, 347, -420, 347, -418.9, 399, -370.9, 399, -368.8, 429, -335.8, 429, -333.7, 464, -285.7, 464, -283.6, 497, -223.5, 497, -220.3, 512, -186.4, 512, -183.3, 526, -142.3, 526, -138.4, 540, -73.2, 540, 62.6, 530.7, 124, 529.5, 124, 521.6, 158, 520.4, 158, 502.4, 211, 501.3, 211, 469.3, 277, 468.1, 277, 428.1, 337, 426.9, 337, 370.9, 399, 368.7, 399, 315.7, 444, 313.6, 444, 261.6, 478, 259.5, 478, 223.5, 497, 220.3, 497, 186.4, 512, 183.3, 512, 122.3, 531, 117.4, 531, 67.3, 540, -68.2, 540, -124, 530.7, -124, 529.5, -196, 508.5, -196, 507.4, -225, 496.4, -225, 495.2, -277, 469.2, -277, 468.1, -337, 428.1, -337, 426.9, -399, 370.9, -399, 368.7, -444, 315.7, -444, 313.6, -478, 261.6, -478, 259.5, -497, 223.5, -497, 220.3, -512, 186.4, -512, 183.3, -526, 142.3, -526, 138, -536, 98.2, -536, 92, -540, 68.1, -540, -62.6, -530.7, -124, -529.5, -124, -508.5, -196, -507.3, -196, -477.3, -263, -476.1, -263, -443.1, -317, -442, -317, -398, -372, -396.9, -372, -335.8, -429, -333.6, -429, -275.6, -470, -273.5, -470, -209.5, -503, -206.4, -503, -142.3, -526, -138.1, -526, -98.2, -536, -92.3, -536, -63.7, -540, 75, -540)
 
 [node name="enemy bullet" type="CharacterBody2D"]
 collision_layer = 4
@@ -17,7 +26,9 @@ speed = 50
 lifetime = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.00740741, 0.00740741)
+modulate = Color(0.0313726, 0.145098, 0.160784, 1)
+z_index = -1
+scale = Vector2(0.0222222, 0.0222222)
 texture = ExtResource("2_3esvs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,5 +39,24 @@ disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_e7jh1")
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = -2
+width_curve = SubResource("Curve_wtnhm")
+default_color = Color(0.0470588, 0.180392, 0.2, 0.803922)
+script = ExtResource("4_o0i04")
+trail_length = 100
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 2
+scale = Vector2(0.898438, 0.898438)
+color = Color(0.0901961, 0.282353, 0.305882, 1)
+energy = 16.0
+blend_mode = 2
+texture = ExtResource("3_m88is")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+scale = Vector2(0.0222222, 0.0222222)
+occluder = SubResource("OccluderPolygon2D_cxjtb")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

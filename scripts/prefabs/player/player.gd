@@ -8,7 +8,6 @@ const JUMP_VELOCITY = -400.0
 const DASH_SPEED = 800
 
 ### PUBLIC VARIABLES ###
-@export var max_jump_count = 2
 @export var player_dash_particle: PackedScene
 
 ### VARIABLES ###
@@ -67,19 +66,15 @@ func _physics_process(delta):
 	if dashing:
 		if is_on_floor() or is_on_wall() or is_on_ceiling():
 			dashing = false
-			get_parent().get_node("Camera2D").shake(50, 0.1, 50)
-
-	# reset jump_count if on ground
-	if is_on_floor():
-		jump_count = 0
+			get_parent().get_node("Camera2D").shake(150, 0.2, 150)
 
 	# handle jump
-	if Input.is_action_just_pressed("ui_up") and jump_count < max_jump_count:
+	if Input.is_action_just_pressed("ui_up"):
 		velocity.y = JUMP_VELOCITY
 		jump_count += 1
 
 	# disable horizontal movement if not dashing
-	if not dashing: velocity.x = move_toward(velocity.x, 0, SPEED)
+	if not dashing and is_on_floor(): velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	if rotating: velocity *= GlobalVariables.time_scale
 
@@ -87,6 +82,7 @@ func _physics_process(delta):
 
 ### PRIVATE FUNCTIONS ###
 func _dash_towards():
+	get_parent().get_node("Camera2D").shake(100, 0.4, 100)
 	var particle = player_dash_particle.instantiate()
 	particle.global_position = global_position
 	get_parent().add_child(particle)
