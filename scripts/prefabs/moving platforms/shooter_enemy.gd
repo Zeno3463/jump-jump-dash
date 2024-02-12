@@ -16,6 +16,10 @@ func _physics_process(delta):
 		time = randf_range(start_time - start_time_random, start_time + start_time_random)
 	else: time -= delta
 
+func _on_area_2d_body_entered(body):
+	if body is PlayerCLass:
+		get_tree().reload_current_scene()
+
 ### PRIVATE FUNCTIONS ###
 func _shoot():
 	# shoot a new bullet towards the player

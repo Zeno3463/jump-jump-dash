@@ -1,28 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://djh4kfarf80en"]
+[gd_scene load_steps=7 format=3 uid="uid://djh4kfarf80en"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player/player_bullet.gd" id="1_51nqa"]
 [ext_resource type="Texture2D" uid="uid://datkf2b5x0qjq" path="res://sprites/White Circle.png" id="2_ddtmy"]
 [ext_resource type="Script" path="res://scripts/prefabs/player/trail.gd" id="3_nq3nj"]
-[ext_resource type="Texture2D" uid="uid://copuqp4jbfc3d" path="res://sprites/Lightmap.png" id="4_h0rbp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vl42s"]
 radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7jh1"]
-radius = 4.0
+radius = 12.0
 
 [sub_resource type="Curve" id="Curve_wtnhm"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="player bullet" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_51nqa")
+speed = 25000
 lifetime = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.372549, 0.0431373, 0.14902, 1)
+modulate = Color(0.87451, 0.215686, 0.407843, 1)
 z_index = -1
 scale = Vector2(0.0222222, 0.0222222)
 texture = ExtResource("2_ddtmy")
@@ -38,15 +39,10 @@ shape = SubResource("CircleShape2D_e7jh1")
 
 [node name="Line2D" type="Line2D" parent="."]
 z_index = -2
+width = 15.0
 width_curve = SubResource("Curve_wtnhm")
 default_color = Color(0.372549, 0.0431373, 0.14902, 0.560784)
 script = ExtResource("3_nq3nj")
 trail_length = 100
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-z_index = 2
-scale = Vector2(0.898438, 0.898438)
-color = Color(0.372549, 0.0431373, 0.14902, 1)
-texture = ExtResource("4_h0rbp")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

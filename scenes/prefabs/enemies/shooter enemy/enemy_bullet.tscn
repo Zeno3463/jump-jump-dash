@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://yee13ov2h3sx"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/enemies/enemy_bullet.gd" id="1_lnrlx"]
+[ext_resource type="Texture2D" uid="uid://datkf2b5x0qjq" path="res://sprites/White Circle.png" id="2_3esvs"]
+[ext_resource type="Script" path="res://scripts/prefabs/player/trail.gd" id="4_o0i04"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vl42s"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7jh1"]
+radius = 4.0
+
+[sub_resource type="Curve" id="Curve_wtnhm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="enemy bullet" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_lnrlx")
+speed = 5000
+lifetime = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.160784, 0.427451, 0.462745, 1)
+z_index = -1
+scale = Vector2(0.0222222, 0.0222222)
+texture = ExtResource("2_3esvs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vl42s")
+disabled = true
+
+[node name="enemy bullet" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy bullet"]
+shape = SubResource("CircleShape2D_e7jh1")
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = -2
+width = 20.0
+width_curve = SubResource("Curve_wtnhm")
+default_color = Color(0.0470588, 0.180392, 0.2, 0.803922)
+script = ExtResource("4_o0i04")
+trail_length = 100
+
+[connection signal="body_entered" from="enemy bullet" to="." method="_on_area_2d_body_entered"]

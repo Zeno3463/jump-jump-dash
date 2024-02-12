@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtfp5w7o4bptn"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/moving platforms/shooter_enemy.gd" id="1_wb4pg"]
+[ext_resource type="PackedScene" uid="uid://bno2p42geufs" path="res://scenes/prefabs/enemies/gun enemy/enemy_projectile.tscn" id="2_rvson"]
+[ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="3_lrnmm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abpjq"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q2w4"]
+size = Vector2(40, 40)
+
+[node name="Gun Enemy" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_wb4pg")
+bullet = ExtResource("2_rvson")
+start_time = 3
+is_enemy = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.160784, 0.427451, 0.462745, 1)
+position = Vector2(-21, 0)
+scale = Vector2(2.625, 1.25)
+texture = ExtResource("3_lrnmm")
+region_rect = Rect2(0.482468, 2.77791, 15.0712, 12.9683)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.160784, 0.427451, 0.462745, 1)
+scale = Vector2(2.625, 2.625)
+texture = ExtResource("3_lrnmm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_abpjq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1q2w4")
+debug_color = Color(0, 0.360784, 0.423529, 0.572549)
+
+[node name="Sprite2D3" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

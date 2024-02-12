@@ -1,12 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bsku70rqhvndp"]
+[gd_scene load_steps=10 format=3 uid="uid://bsku70rqhvndp"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player/player.gd" id="1_i8wi2"]
 [ext_resource type="PackedScene" uid="uid://bok6rotoprji7" path="res://scenes/effects/player_dash_particle.tscn" id="2_jpc82"]
-[ext_resource type="Texture2D" uid="uid://copuqp4jbfc3d" path="res://sprites/Lightmap.png" id="3_s0mcg"]
 [ext_resource type="Script" path="res://scripts/prefabs/player/trail.gd" id="4_2v40p"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="5_1sk22"]
-[ext_resource type="Texture2D" uid="uid://dm70tfl72ftw8" path="res://icon.svg" id="6_wptvw"]
-[ext_resource type="Texture2D" uid="uid://datkf2b5x0qjq" path="res://sprites/White Circle.png" id="7_qksn3"]
+[ext_resource type="Texture2D" uid="uid://bjung6yxg2fwr" path="res://sprites/UI/up arrow.png" id="7_x08hq"]
+[ext_resource type="Texture2D" uid="uid://dvq44qrvt8kyp" path="res://sprites/UI/up arrow pressed.png" id="8_hklmh"]
 
 [sub_resource type="Curve" id="Curve_xirim"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -18,24 +17,16 @@ point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gehgw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vh1sq"]
-radius = 60.0
-
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 7
 collision_mask = 7
 script = ExtResource("1_i8wi2")
 player_dash_particle = ExtResource("2_jpc82")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(1.06641, 1.06641)
-energy = 6.0
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.968627)
-texture = ExtResource("3_s0mcg")
-
 [node name="Line2D" type="Line2D" parent="."]
 z_index = -1
+width = 20.0
 width_curve = SubResource("Curve_xirim")
 default_color = Color(1, 1, 1, 0.447059)
 script = ExtResource("4_2v40p")
@@ -46,11 +37,6 @@ points = PackedVector2Array(0, 0, 500, 0)
 width_curve = SubResource("Curve_0aqhj")
 default_color = Color(1, 1, 1, 0.447059)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.0588235, 0.0588235, 0.0588235, 0.431373)
-scale = Vector2(230.75, 230.75)
-texture = ExtResource("5_1sk22")
-
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 modulate = Color(0.0588235, 0.0588235, 0.0588235, 0.431373)
 scale = Vector2(230.75, 230.75)
@@ -60,16 +46,20 @@ texture = ExtResource("5_1sk22")
 shape = SubResource("RectangleShape2D_gehgw")
 
 [node name="WhiteSquare" type="Sprite2D" parent="."]
-modulate = Color(0.27451, 0.0235294, 0.101961, 1)
+modulate = Color(0.87451, 0.215686, 0.407843, 1)
 scale = Vector2(1.375, 1.375)
 texture = ExtResource("5_1sk22")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(70, 442)
-texture_normal = ExtResource("6_wptvw")
-texture_pressed = ExtResource("7_qksn3")
-shape = SubResource("CircleShape2D_vh1sq")
-action = "ui_up"
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+offset_left = 44.0
+offset_top = 463.0
+offset_right = 194.0
+offset_bottom = 613.0
+texture_normal = ExtResource("7_x08hq")
+texture_pressed = ExtResource("8_hklmh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_texture_button_pressed"]

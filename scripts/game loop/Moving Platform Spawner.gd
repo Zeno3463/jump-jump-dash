@@ -6,6 +6,7 @@ extends Node2D
 
 ### VARIABLES ###
 var time = 0
+var spawn_count = 0
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):
@@ -13,11 +14,25 @@ func _process(delta):
 	if time <= 0:
 		_spawn_platform()
 		time = start_time
-	else: time -= delta
+	else: time -= delta * GlobalVariables.time_scale
+	
+	# TODO: Speed up the gameplay over time
+	'''
+	if spawn_count % 10 == 0:
+		spawn_count = 0
+		var tween = get_tree().create_tween()
+		var max_time_scale = GlobalVariables.max_time_scale
+		var slowed_down_time_scale = GlobalVariables.slowed_down_time_scale
+		tween.tween_property(GlobalVariables, "max_time_scale", max_time_scale + 0.5, 10)
+		
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(GlobalVariables, "slowed_down_time_scale", slowed_down_time_scale + 0.5, 10)
+	'''
 
 ### PRIVATE FUNCTIONS ###
 func _spawn_platform():
 	# instantiate a new platform object
+	spawn_count += 1
 	var new_platform = moving_platforms.pick_random().instantiate()
 	# randomize the starting position of the platform
 	new_platform.global_position = Vector2(

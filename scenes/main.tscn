@@ -1,18 +1,25 @@
-[gd_scene load_steps=17 format=3 uid="uid://cjx6d4v5buom6"]
+[gd_scene load_steps=21 format=3 uid="uid://coiwn7v8rde1u"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
+[ext_resource type="PackedScene" uid="uid://c1ca80mki1hxo" path="res://scenes/prefabs/enemies/laser.tscn" id="2_f2fxy"]
 [ext_resource type="PackedScene" uid="uid://bio6672tqdkhw" path="res://scenes/prefabs/moving_platform.tscn" id="3_oljps"]
-[ext_resource type="PackedScene" uid="uid://c1ca80mki1hxo" path="res://scenes/prefabs/laser.tscn" id="4_5x1jl"]
+[ext_resource type="PackedScene" uid="uid://dcnes4jnid5fh" path="res://scenes/prefabs/enemies/moving_spikes.tscn" id="4_712a7"]
 [ext_resource type="Script" path="res://scripts/game loop/Moving Platform Spawner.gd" id="4_bisks"]
 [ext_resource type="PackedScene" uid="uid://bsku70rqhvndp" path="res://scenes/prefabs/player/player.tscn" id="4_eg2rf"]
-[ext_resource type="PackedScene" uid="uid://dcnes4jnid5fh" path="res://scenes/prefabs/moving_spikes.tscn" id="4_ryw41"]
-[ext_resource type="PackedScene" uid="uid://17yuadc507it" path="res://scenes/prefabs/shooter enemy/shooter_enemy.tscn" id="4_wou06"]
+[ext_resource type="PackedScene" uid="uid://17yuadc507it" path="res://scenes/prefabs/enemies/shooter enemy/shooter_enemy.tscn" id="5_vyi40"]
+[ext_resource type="PackedScene" uid="uid://dypesk6j5nx70" path="res://scenes/prefabs/enemies/diagonal laser.tscn" id="6_lrerv"]
 [ext_resource type="Script" path="res://scripts/effects/Parallax Background.gd" id="6_mno0m"]
-[ext_resource type="Texture2D" uid="uid://dprh0kujga58g" path="res://sprites/parallax background/layer 1.png" id="7_pl4hh"]
-[ext_resource type="Texture2D" uid="uid://b4w327gpqou0u" path="res://sprites/parallax background/layer 2.png" id="8_vgvyu"]
+[ext_resource type="PackedScene" uid="uid://bbsn0yefuon2g" path="res://scenes/prefabs/enemies/horizontal laser.tscn" id="7_52107"]
 [ext_resource type="PackedScene" uid="uid://cpi5x0ne7qpcy" path="res://scenes/prefabs/player/player_gun.tscn" id="9_7nt0q"]
+[ext_resource type="PackedScene" uid="uid://dtfp5w7o4bptn" path="res://scenes/prefabs/enemies/gun enemy/gun_enemy.tscn" id="9_x0xcv"]
 [ext_resource type="PackedScene" uid="uid://djh4kfarf80en" path="res://scenes/prefabs/player/player_bullet.tscn" id="10_1cob8"]
+[ext_resource type="PackedScene" uid="uid://b8dhlpmkpdim6" path="res://scenes/prefabs/power ups/penta_gun_power_up.tscn" id="12_fu2ev"]
+[ext_resource type="Texture2D" uid="uid://8va4no2easls" path="res://sprites/parallax background/background.png" id="14_n57s8"]
+
+[sub_resource type="Curve" id="Curve_geb0e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kkjl3"]
 normal = Vector2(0.999913, 0.0131568)
@@ -25,9 +32,36 @@ normal = Vector2(-0.0156231, 0.999878)
 
 [node name="Main" type="Node2D"]
 
+[node name="WhiteSquare" type="Sprite2D" parent="."]
+modulate = Color(0.992157, 0.8, 0.666667, 1)
+z_index = -3
+position = Vector2(9.5, -82)
+scale = Vector2(176.938, 86.5835)
+texture = ExtResource("1_cppkc")
+
+[node name="Parallax Background" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="Parallax Background"]
+modulate = Color(0.972549, 0.635294, 0.380392, 0.337255)
+z_index = -3
+position = Vector2(-55, -45)
+scale = Vector2(10.0667, 10.0667)
+texture = ExtResource("14_n57s8")
+script = ExtResource("6_mno0m")
+parallax_multiplier = 100.0
+
+[node name="Background2" type="Sprite2D" parent="Parallax Background"]
+modulate = Color(0.972549, 0.635294, 0.380392, 0.337255)
+z_index = -3
+position = Vector2(235, 115)
+scale = Vector2(10.0667, 10.0667)
+texture = ExtResource("14_n57s8")
+script = ExtResource("6_mno0m")
+parallax_multiplier = 50.0
+
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("4_bisks")
-moving_platforms = Array[PackedScene]([ExtResource("4_5x1jl"), ExtResource("3_oljps"), ExtResource("4_ryw41"), ExtResource("4_wou06")])
+moving_platforms = Array[PackedScene]([ExtResource("2_f2fxy"), ExtResource("3_oljps"), ExtResource("4_712a7"), ExtResource("5_vyi40"), ExtResource("6_lrerv"), ExtResource("7_52107"), ExtResource("9_x0xcv"), ExtResource("9_x0xcv"), ExtResource("12_fu2ev")])
 
 [node name="Upper bound" type="Node2D" parent="Spawner"]
 position = Vector2(654, -326)
@@ -39,7 +73,8 @@ position = Vector2(659, 166)
 position = Vector2(1, 249)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-scale = Vector2(76.75, 10.5)
+position = Vector2(0, 47.3355)
+scale = Vector2(163.25, 16.4169)
 texture = ExtResource("1_cppkc")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
@@ -62,53 +97,16 @@ emission_shape = 3
 emission_rect_extents = Vector2(10, 50)
 gravity = Vector2(0, 98)
 scale_amount_min = 0.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_geb0e")
+color = Color(0.207843, 0.207843, 0.207843, 0.454902)
 
 [node name="Player" parent="." instance=ExtResource("4_eg2rf")]
 position = Vector2(-8, -56)
 
 [node name="Player Gun" parent="Player" instance=ExtResource("9_7nt0q")]
+start_time = 15.0
 bullet = ExtResource("10_1cob8")
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-script = ExtResource("6_mno0m")
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-542, -281)
-motion_scale = Vector2(0, 0)
-motion_mirroring = Vector2(1200, 500)
-
-[node name="Layer9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-modulate = Color(0.992157, 0.8, 0.666667, 1)
-z_index = -2
-position = Vector2(548, 221)
-scale = Vector2(80.0313, 33.875)
-texture = ExtResource("1_cppkc")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
-position = Vector2(-325, -115)
-motion_scale = Vector2(0.7, 0.7)
-motion_mirroring = Vector2(1200, 0)
-
-[node name="Layer8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-modulate = Color(0.105882, 0.321569, 0.34902, 1)
-z_index = -2
-position = Vector2(568, 186)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_pl4hh")
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
-position = Vector2(-325, -115)
-motion_scale = Vector2(0.9, 0.9)
-motion_mirroring = Vector2(1200, 0)
-
-[node name="Layer9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-modulate = Color(0.105882, 0.321569, 0.34902, 1)
-z_index = -2
-position = Vector2(568, 186)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_vgvyu")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
