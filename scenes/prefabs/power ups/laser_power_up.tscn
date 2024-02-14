@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://deds6jucieyes"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/power_ups/power_up.gd" id="1_fnf1s"]
+[ext_resource type="Texture2D" uid="uid://c6bnu0o02of5e" path="res://sprites/power ups/laser.png" id="2_16puo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0g6oc"]
+radius = 10.0222
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m4w2t"]
+radius = 18.6786
+
+[node name="Laser Power Up" type="StaticBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_fnf1s")
+power_up = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0746667, 0.0746667)
+texture = ExtResource("2_16puo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0g6oc")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_m4w2t")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

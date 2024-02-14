@@ -9,6 +9,27 @@ var time := 0
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):
+	# if laser mode is activated, show the laser, else hide it
+	if GlobalVariables.laser:
+		$"Player Laser".on = true
+		$"Player Laser".visible = true
+		return
+	else:
+		$"Player Laser".on = false
+		$"Player Laser".visible = false
+	
+	# if spike mode is activated, show the spike, else hide it
+	if GlobalVariables.spike:
+		$"Player Spike".on = true
+		$"Player Spike".visible = true
+		return
+	else:
+		$"Player Spike".on = false
+		$"Player Spike".visible = false
+	
+	# if the game has not started yet, don't shoot
+	if not GlobalVariables.start_game: return
+	
 	# initiate shooting every n seconds
 	if time <= 0:
 		_shoot()

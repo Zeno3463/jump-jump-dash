@@ -11,12 +11,9 @@ class_name MovingPlatforms
 @onready var original_color = get_node("Sprite2D").modulate
 @onready var enemy_damage_particle = preload("res://scenes/effects/enemy_damage_particle.tscn")
 @onready var life = enemy_life
-var moving = true
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):
-	if not moving: return
-	
 	# move to the left
 	global_position.x -= speed * delta * GlobalVariables.time_scale
 	

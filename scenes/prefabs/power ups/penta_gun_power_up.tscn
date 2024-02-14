@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8dhlpmkpdim6"]
 
-[ext_resource type="Script" path="res://scripts/prefabs/power_ups/penta_gun_power_up.gd" id="1_grp35"]
+[ext_resource type="Script" path="res://scripts/prefabs/power_ups/power_up.gd" id="1_bbrvd"]
 [ext_resource type="Texture2D" uid="uid://dhes6de2qd0lr" path="res://sprites/power ups/penta gun.png" id="2_0gc5t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0g6oc"]
@@ -13,7 +13,7 @@ radius = 18.6786
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_grp35")
+script = ExtResource("1_bbrvd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0746667, 0.0746667)

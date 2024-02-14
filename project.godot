@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GlobalVariables="*res://scripts/global variables/global variables.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 ui_left={

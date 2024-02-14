@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcnes4jnid5fh"]
 
-[ext_resource type="Script" path="res://scripts/prefabs/moving platforms/moving_spikes.gd" id="1_aocqj"]
+[ext_resource type="Script" path="res://scripts/prefabs/enemies/moving_spikes.gd" id="1_kos5f"]
 [ext_resource type="Texture2D" uid="uid://betg0k3njpb22" path="res://sprites/spike.png" id="2_01cud"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1nym8"]
@@ -12,7 +12,7 @@ radius = 26.0
 [node name="Moving Spikes" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_aocqj")
+script = ExtResource("1_kos5f")
 is_enemy = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

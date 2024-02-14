@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://rplh3floshr"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/enemies/moving_spikes.gd" id="1_fb8kn"]
+[ext_resource type="Texture2D" uid="uid://betg0k3njpb22" path="res://sprites/spike.png" id="2_ik145"]
+[ext_resource type="Script" path="res://scripts/prefabs/player/trail.gd" id="3_yjdr2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1nym8"]
+radius = 25.318
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_la6on"]
+radius = 15.0333
+
+[sub_resource type="Curve" id="Curve_f4jbp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Speed Enemy" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_fb8kn")
+speed = 1000
+is_enemy = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.160784, 0.427451, 0.462745, 1)
+position = Vector2(1, 0)
+scale = Vector2(0.0314815, 0.0314815)
+texture = ExtResource("2_ik145")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1nym8")
+disabled = true
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("CircleShape2D_la6on")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color(0.678431, 0.678431, 0.678431, 1)
+amount = 50
+emission_shape = 1
+emission_sphere_radius = 50.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+damping_max = 25.676
+angle_max = 253.0
+scale_amount_min = 0.0
+scale_amount_max = 7.0
+color = Color(0.105882, 0.321569, 0.34902, 1)
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = -2
+width_curve = SubResource("Curve_f4jbp")
+default_color = Color(0.0470588, 0.180392, 0.2, 0.803922)
+script = ExtResource("3_yjdr2")
+trail_length = 20
+
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

@@ -4,7 +4,7 @@ extends Camera2D
 var shake_amount = 0
 
 # A flag to track if the camera shake is finished
-var done = false
+var done := false
 
 func _process(delta):
 	# If the camera shake is finished, return

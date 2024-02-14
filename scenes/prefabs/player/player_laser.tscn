@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx3ktc07wpd1k"]
+
+[ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_fl6ar"]
+[ext_resource type="Script" path="res://scripts/prefabs/player/player_laser.gd" id="1_tu4r2"]
+
+[sub_resource type="Curve" id="Curve_omkvg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.788194, 0.97153), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_qn14b"]
+colors = PackedColorArray(0.372549, 0.0431373, 0.14902, 1, 0, 0, 0, 0)
+
+[node name="Player Laser" type="StaticBody2D"]
+script = ExtResource("1_tu4r2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.462745, 0.0627451, 0.192157, 0.454902)
+position = Vector2(570.51, 1.93427e-05)
+rotation = 1.5708
+scale = Vector2(1.125, 71.3137)
+texture = ExtResource("1_fl6ar")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(570.51, 1.93427e-05)
+rotation = 1.5708
+scale = Vector2(0.375, 71.3137)
+polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(570.51, 1.93427e-05)
+rotation = 1.5708
+scale = Vector2(0.854429, 71.3137)
+polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(521, -2)
+rotation = 1.5708
+amount = 150
+lifetime = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(50, 500)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 58.92
+initial_velocity_max = 58.92
+scale_amount_min = 0.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_omkvg")
+color_ramp = SubResource("Gradient_qn14b")

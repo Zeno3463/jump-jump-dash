@@ -3,13 +3,16 @@ extends Node2D
 ### PUBLIC VARIABLES ###
 @export var moving_platforms: Array[PackedScene]
 @export var start_time = 1
+@export var time_btw_level = 20
 
 ### VARIABLES ###
 var time = 0
-var spawn_count = 0
+@onready var level_time = time_btw_level
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):
+	if not GlobalVariables.start_game: return
+	
 	# spawn a moving platform every n seconds
 	if time <= 0:
 		_spawn_platform()
@@ -17,22 +20,17 @@ func _process(delta):
 	else: time -= delta * GlobalVariables.time_scale
 	
 	# TODO: Speed up the gameplay over time
-	'''
-	if spawn_count % 10 == 0:
-		spawn_count = 0
-		var tween = get_tree().create_tween()
-		var max_time_scale = GlobalVariables.max_time_scale
-		var slowed_down_time_scale = GlobalVariables.slowed_down_time_scale
-		tween.tween_property(GlobalVariables, "max_time_scale", max_time_scale + 0.5, 10)
-		
-		var tween2 = get_tree().create_tween()
-		tween2.tween_property(GlobalVariables, "slowed_down_time_scale", slowed_down_time_scale + 0.5, 10)
-	'''
+	if level_time <= 0:
+		level_time = time_btw_level
+		GlobalVariables.max_time_scale += 0.1
+		GlobalVariables.slowed_down_time_scale += 0.1
+		GlobalVariables.time_scale += 0.1
+	else:
+		level_time -= delta * GlobalVariables.time_scale
 
 ### PRIVATE FUNCTIONS ###
 func _spawn_platform():
 	# instantiate a new platform object
-	spawn_count += 1
 	var new_platform = moving_platforms.pick_random().instantiate()
 	# randomize the starting position of the platform
 	new_platform.global_position = Vector2(

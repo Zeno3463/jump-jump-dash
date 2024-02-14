@@ -2,9 +2,9 @@ extends Line2D
 
 ### PUBLIC VARIABLES ###
 @export var trail_length = 10
-@onready var point = get_parent().global_position
 
 ### VARIABLES ###
+@onready var point = get_parent().global_position
 var leave_tracks = true
 
 ### SYSTEM FUNCTIONS ###

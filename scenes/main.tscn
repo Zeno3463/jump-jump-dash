@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://coiwn7v8rde1u"]
+[gd_scene load_steps=30 format=3 uid="uid://coiwn7v8rde1u"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
@@ -15,7 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://dtfp5w7o4bptn" path="res://scenes/prefabs/enemies/gun enemy/gun_enemy.tscn" id="9_x0xcv"]
 [ext_resource type="PackedScene" uid="uid://djh4kfarf80en" path="res://scenes/prefabs/player/player_bullet.tscn" id="10_1cob8"]
 [ext_resource type="PackedScene" uid="uid://b8dhlpmkpdim6" path="res://scenes/prefabs/power ups/penta_gun_power_up.tscn" id="12_fu2ev"]
+[ext_resource type="PackedScene" uid="uid://deds6jucieyes" path="res://scenes/prefabs/power ups/laser_power_up.tscn" id="13_77xn6"]
+[ext_resource type="PackedScene" uid="uid://rplh3floshr" path="res://scenes/prefabs/enemies/speed_enemy.tscn" id="14_f2hyh"]
 [ext_resource type="Texture2D" uid="uid://8va4no2easls" path="res://sprites/parallax background/background.png" id="14_n57s8"]
+[ext_resource type="PackedScene" uid="uid://crq8v116euc7" path="res://scenes/prefabs/power ups/spike_power_up.tscn" id="15_dweuu"]
+[ext_resource type="Script" path="res://scripts/game loop/Start Scene.gd" id="20_bubng"]
+[ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="21_u2ji1"]
+[ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="22_5iady"]
 
 [sub_resource type="Curve" id="Curve_geb0e"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -29,6 +35,12 @@ normal = Vector2(-1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_alilj"]
 normal = Vector2(-0.0156231, 0.999878)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nty8d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vvuc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glywh"]
 
 [node name="Main" type="Node2D"]
 
@@ -61,7 +73,7 @@ parallax_multiplier = 50.0
 
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("4_bisks")
-moving_platforms = Array[PackedScene]([ExtResource("2_f2fxy"), ExtResource("3_oljps"), ExtResource("4_712a7"), ExtResource("5_vyi40"), ExtResource("6_lrerv"), ExtResource("7_52107"), ExtResource("9_x0xcv"), ExtResource("9_x0xcv"), ExtResource("12_fu2ev")])
+moving_platforms = Array[PackedScene]([ExtResource("2_f2fxy"), ExtResource("3_oljps"), ExtResource("4_712a7"), ExtResource("5_vyi40"), ExtResource("6_lrerv"), ExtResource("7_52107"), ExtResource("9_x0xcv"), ExtResource("9_x0xcv"), ExtResource("12_fu2ev"), ExtResource("13_77xn6"), ExtResource("14_f2hyh"), ExtResource("15_dweuu"), ExtResource("14_f2hyh"), ExtResource("14_f2hyh"), ExtResource("9_x0xcv"), ExtResource("5_vyi40"), ExtResource("7_52107"), ExtResource("14_f2hyh"), ExtResource("4_712a7")])
 
 [node name="Upper bound" type="Node2D" parent="Spawner"]
 position = Vector2(654, -326)
@@ -102,7 +114,7 @@ scale_amount_curve = SubResource("Curve_geb0e")
 color = Color(0.207843, 0.207843, 0.207843, 0.454902)
 
 [node name="Player" parent="." instance=ExtResource("4_eg2rf")]
-position = Vector2(-8, -56)
+position = Vector2(-1, 148)
 
 [node name="Player Gun" parent="Player" instance=ExtResource("9_7nt0q")]
 start_time = 15.0
@@ -122,4 +134,59 @@ shape = SubResource("WorldBoundaryShape2D_f05iu")
 position = Vector2(2, -331)
 shape = SubResource("WorldBoundaryShape2D_alilj")
 
+[node name="Start Scene" type="CanvasLayer" parent="."]
+script = ExtResource("20_bubng")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene"]
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 1171.0
+offset_bottom = 667.0
+color = Color(0, 0, 0, 0.431373)
+
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene"]
+offset_left = -2.0
+offset_top = -89.0
+offset_right = 1152.0
+offset_bottom = 558.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Start Scene/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Jump"
+
+[node name="Label2" type="Label" parent="Start Scene/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.223529, 0.415686, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Jump"
+
+[node name="Label3" type="Label" parent="Start Scene/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Dash"
+
+[node name="Label" type="Label" parent="Start Scene"]
+offset_left = 468.0
+offset_top = 556.0
+offset_right = 687.0
+offset_bottom = 582.0
+theme_override_fonts/font = ExtResource("22_5iady")
+text = "Press anywhere to start"
+
+[node name="Button" type="Button" parent="Start Scene"]
+offset_right = 1155.0
+offset_bottom = 648.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nty8d")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1vvuc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_glywh")
+
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
+[connection signal="pressed" from="Start Scene/Button" to="Start Scene" method="_on_button_pressed"]

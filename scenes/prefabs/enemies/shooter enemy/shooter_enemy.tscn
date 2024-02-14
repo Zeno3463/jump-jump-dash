@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://17yuadc507it"]
 
-[ext_resource type="Script" path="res://scripts/prefabs/moving platforms/shooter_enemy.gd" id="1_56fi0"]
+[ext_resource type="Script" path="res://scripts/prefabs/enemies/shooter_enemy.gd" id="1_2r4gw"]
 [ext_resource type="PackedScene" uid="uid://yee13ov2h3sx" path="res://scenes/prefabs/enemies/shooter enemy/enemy_bullet.tscn" id="2_y42lv"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="3_v1oqe"]
 
@@ -13,7 +13,7 @@ size = Vector2(40, 40)
 [node name="Shooter Enemy" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_56fi0")
+script = ExtResource("1_2r4gw")
 bullet = ExtResource("2_y42lv")
 start_time = 3
 is_enemy = true

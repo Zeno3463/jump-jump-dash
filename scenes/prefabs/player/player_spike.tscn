@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://voc7lb53ydtf"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/player/player_laser.gd" id="1_hntid"]
+[ext_resource type="Texture2D" uid="uid://c5evat7bygie8" path="res://sprites/ninja star.png" id="2_5kn7u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2byp"]
+radius = 192.094
+
+[node name="Player Spike" type="StaticBody2D"]
+script = ExtResource("1_hntid")
+is_spike = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.462745, 0.0627451, 0.192157, 0.898039)
+scale = Vector2(0.291837, 0.291837)
+texture = ExtResource("2_5kn7u")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(570.51, 7.62939e-06)
+rotation = 1.5708
+scale = Vector2(0.375, 71.3137)
+polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_w2byp")
