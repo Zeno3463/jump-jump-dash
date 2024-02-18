@@ -19,7 +19,7 @@ func _process(delta):
 		time = start_time
 	else: time -= delta * GlobalVariables.time_scale
 	
-	# TODO: Speed up the gameplay over time
+	# speed up the gameplay over time
 	if level_time <= 0:
 		level_time = time_btw_level
 		GlobalVariables.max_time_scale += 0.1

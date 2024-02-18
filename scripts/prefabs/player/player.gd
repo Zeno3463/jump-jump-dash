@@ -16,12 +16,10 @@ const DASH_SPEED = 600
 @onready var original_color = $WhiteSquare.modulate
 @onready var life = max_life
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var jump_count := 0
 var rotating := false
 var dashing := false
 var dir := Vector2.ZERO # keep track of the direction of rotation of the player when the player clicks the left mouse button
 var mouse_pos_when_pressed := Vector2.ZERO # keep track of the original mouse position when the player clicks left mouse button
-var activate_power_up := false
 
 ### SYSTEM FUNCTIONS ###
 func _ready():
@@ -54,8 +52,14 @@ func _unhandled_input(event):
 			_dash_towards()
 
 func _process(_delta):
-	if not GlobalVariables.start_game: return
+	# hide the player UI (jump button, pause button) if the game hasn't started
+	if not GlobalVariables.start_game:
+		$CanvasLayer.visible = false
+		return
+	else:
+		$CanvasLayer.visible = true
 	
+	# display the life of the player with heart textures
 	for child in $CanvasLayer/Hearts.get_children():
 		child.queue_free()
 	for i in range(life):
@@ -66,17 +70,6 @@ func _process(_delta):
 	
 	# if rotation is enabled
 	if rotating:
-		# activate power up if the jump jump dash sequence is achieved
-		if jump_count == 2 and GlobalVariables.current_power_up != "":
-			activate_power_up = true
-			$WhiteSquare.modulate = Color.WHITE
-			$Light.visible = true
-		else:
-			$Light.visible = false
-			$WhiteSquare.modulate = original_color
-			activate_power_up = false
-			jump_count = 0
-		
 		# make the screen darker when rotating
 		var tween := get_tree().create_tween()
 		tween.tween_property($Sprite2D2, "modulate", Color8(0, 0, 0, 100), 0.1)
@@ -116,10 +109,7 @@ func _physics_process(delta):
 			particle.emitting = true
 
 	# handle jump
-	if Input.is_action_just_pressed("ui_up"):
-		velocity.y = JUMP_VELOCITY
-		jump_count += 1
-		if jump_count > 2: jump_count = 2
+	if Input.is_action_just_pressed("ui_up"): velocity.y = JUMP_VELOCITY
 
 	# disable horizontal movement if not dashing
 	if not dashing and is_on_floor(): velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -134,23 +124,26 @@ func _on_texture_button_pressed():
 	if not GlobalVariables.start_game: return
 	
 	velocity.y = JUMP_VELOCITY
-	jump_count += 1
 
 ### PUBLIC FUNCTIONS ###
 func take_damage():
 	life -= 1
+	
+	# flash a white color on the player texture, while pausing the game for a short moment
 	get_tree().paused = true
 	$WhiteSquare.modulate = Color.WHITE
 	await get_tree().create_timer(0.2).timeout
 	get_tree().paused = false
 	$WhiteSquare.modulate = original_color
-	if life < 0:
+	
+	# if player runs out of life, go back to menu screen
+	if life <= 0:
+		GlobalVariables.save_game()
+		GlobalVariables.start_game = false
 		get_tree().reload_current_scene()
 
 ### PRIVATE FUNCTIONS ###
 func _dash_towards():
-	if activate_power_up: _activate_power_up()
-	
 	# initiate screen shake
 	get_parent().get_node("Camera2D").shake(100, 0.4, 100)
 	
@@ -162,36 +155,7 @@ func _dash_towards():
 	
 	# enable dashing
 	dashing = true
+	
 	# dynamically set the player velocity to dash towards the direction of rotation of the player
 	velocity = Vector2.RIGHT.rotated(atan2(dir.y, dir.x)) * DASH_SPEED
 
-func _activate_power_up():
-	var particle = player_power_up_particle.instantiate()
-	particle.global_position = global_position
-	get_parent().add_child(particle)
-	particle.emitting = true
-	$Light.visible = false
-	$CanvasLayer/TextureRect.texture = null
-	$WhiteSquare.modulate = original_color
-	activate_power_up = false
-	jump_count = 0
-	match GlobalVariables.current_power_up:
-		"PentaGunPowerUp":
-			GlobalVariables.is_using_power_up = true
-			GlobalVariables.penta_gun = true
-			await get_tree().create_timer(8).timeout
-			GlobalVariables.penta_gun = false
-			GlobalVariables.is_using_power_up = false
-		"LaserPowerUp":
-			GlobalVariables.is_using_power_up = true
-			GlobalVariables.laser = true
-			await get_tree().create_timer(8).timeout
-			GlobalVariables.laser = false
-			GlobalVariables.is_using_power_up = false
-		"SpikePowerUp":
-			GlobalVariables.is_using_power_up = true
-			GlobalVariables.spike = true
-			await get_tree().create_timer(8).timeout
-			GlobalVariables.spike = false
-			GlobalVariables.is_using_power_up = false
-	GlobalVariables.current_power_up = ""

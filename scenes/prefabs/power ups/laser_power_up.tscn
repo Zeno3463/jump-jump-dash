@@ -14,7 +14,7 @@ scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_fnf1s")
-power_up = 1
+weapon = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0746667, 0.0746667)

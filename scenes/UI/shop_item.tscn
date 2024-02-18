@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://6vctaccvfrt"]
+
+[ext_resource type="Script" path="res://scripts/UI/shop_item.gd" id="1_tforv"]
+[ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="2_4brxo"]
+[ext_resource type="Texture2D" uid="uid://dm70tfl72ftw8" path="res://icon.svg" id="2_peyus"]
+
+[node name="Shop Item" type="TextureButton"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1111.0
+offset_bottom = -580.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 0
+script = ExtResource("1_tforv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("2_peyus")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 46.0
+offset_right = 40.0
+offset_bottom = 72.0
+theme_override_fonts/font = ExtResource("2_4brxo")
+text = "$50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -17.0
+offset_top = -11.0
+offset_right = 57.0
+offset_bottom = 77.0
+color = Color(0.72549, 0.72549, 0.72549, 0.117647)
+
+[node name="Purchased" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -17.0
+offset_top = -11.0
+offset_right = 57.0
+offset_bottom = 77.0
+color = Color(0.145098, 0.145098, 0.145098, 0.282353)

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5evat7bygie8" path="res://sprites/ninja star.png" id="2_5kn7u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w2byp"]
-radius = 192.094
+radius = 105.0
 
 [node name="Player Spike" type="StaticBody2D"]
 script = ExtResource("1_hntid")
@@ -12,7 +12,7 @@ is_spike = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.462745, 0.0627451, 0.192157, 0.898039)
-scale = Vector2(0.291837, 0.291837)
+scale = Vector2(0.161224, 0.161224)
 texture = ExtResource("2_5kn7u")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

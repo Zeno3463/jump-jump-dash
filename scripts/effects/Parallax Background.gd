@@ -11,4 +11,3 @@ func _process(delta):
 	# if the object moves too far to the left, reset the position of the object
 	if position.x <= -950:
 		position.x = 950
-

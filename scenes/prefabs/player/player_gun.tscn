@@ -7,6 +7,8 @@
 [node name="Player Gun" type="Sprite2D"]
 script = ExtResource("2_36y01")
 
-[node name="Player Laser" parent="." instance=ExtResource("2_i5bq6")]
+[node name="Laser" parent="." instance=ExtResource("2_i5bq6")]
+visible = false
 
-[node name="Player Spike" parent="." instance=ExtResource("2_l4kaj")]
+[node name="Spike" parent="." instance=ExtResource("2_l4kaj")]
+visible = false

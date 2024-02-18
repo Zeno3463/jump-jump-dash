@@ -38,6 +38,7 @@ func take_damage():
 	
 	# if the enemy has no life, destroy the enemy
 	if life == 0:
+		GlobalVariables.coins += 1
 		queue_free()
 		return
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://coiwn7v8rde1u"]
+[gd_scene load_steps=40 format=3 uid="uid://coiwn7v8rde1u"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
@@ -20,8 +20,18 @@
 [ext_resource type="Texture2D" uid="uid://8va4no2easls" path="res://sprites/parallax background/background.png" id="14_n57s8"]
 [ext_resource type="PackedScene" uid="uid://crq8v116euc7" path="res://scenes/prefabs/power ups/spike_power_up.tscn" id="15_dweuu"]
 [ext_resource type="Script" path="res://scripts/game loop/Start Scene.gd" id="20_bubng"]
+[ext_resource type="Script" path="res://scripts/UI/Default.gd" id="21_lvg52"]
 [ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="21_u2ji1"]
 [ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="22_5iady"]
+[ext_resource type="FontFile" uid="uid://cx1p0dcc82jus" path="res://fonts/Orbitron-SemiBold.ttf" id="23_xc26k"]
+[ext_resource type="Texture2D" uid="uid://dce240ppf3ra1" path="res://sprites/UI/shopping-cart.png" id="24_4ndw1"]
+[ext_resource type="Texture2D" uid="uid://b05bnkeap65bp" path="res://sprites/UI/settings.png" id="25_ajjq8"]
+[ext_resource type="PackedScene" uid="uid://6vctaccvfrt" path="res://scenes/UI/shop_item.tscn" id="26_boyvy"]
+[ext_resource type="Script" path="res://scripts/UI/Shop.gd" id="26_pwdru"]
+[ext_resource type="Texture2D" uid="uid://c7wykyer1q5ng" path="res://sprites/UI/preference.png" id="26_u8sjw"]
+[ext_resource type="Texture2D" uid="uid://dqg3f6qua71j1" path="res://sprites/UI/cross.png" id="30_j8uac"]
+[ext_resource type="Script" path="res://scripts/UI/Customize.gd" id="31_0n82x"]
+[ext_resource type="Texture2D" uid="uid://dm70tfl72ftw8" path="res://icon.svg" id="31_j4kds"]
 
 [sub_resource type="Curve" id="Curve_geb0e"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -137,43 +147,53 @@ shape = SubResource("WorldBoundaryShape2D_alilj")
 [node name="Start Scene" type="CanvasLayer" parent="."]
 script = ExtResource("20_bubng")
 
-[node name="ColorRect" type="ColorRect" parent="Start Scene"]
+[node name="Default" type="Control" parent="Start Scene"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("21_lvg52")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene/Default"]
+layout_mode = 0
 offset_left = -23.0
 offset_top = -23.0
 offset_right = 1171.0
 offset_bottom = 667.0
 color = Color(0, 0, 0, 0.431373)
 
-[node name="CenterContainer" type="CenterContainer" parent="Start Scene"]
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Default"]
+layout_mode = 0
 offset_left = -2.0
 offset_top = -89.0
 offset_right = 1152.0
 offset_bottom = 558.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Default/CenterContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Start Scene/CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Start Scene/Default/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
 theme_override_fonts/font = ExtResource("21_u2ji1")
 theme_override_font_sizes/font_size = 90
 text = "Jump"
 
-[node name="Label2" type="Label" parent="Start Scene/CenterContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="Start Scene/Default/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.894118, 0.223529, 0.415686, 1)
 theme_override_fonts/font = ExtResource("21_u2ji1")
 theme_override_font_sizes/font_size = 90
 text = "Jump"
 
-[node name="Label3" type="Label" parent="Start Scene/CenterContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="Start Scene/Default/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("21_u2ji1")
 theme_override_font_sizes/font_size = 90
 text = "Dash"
 
-[node name="Label" type="Label" parent="Start Scene"]
+[node name="Label" type="Label" parent="Start Scene/Default"]
+layout_mode = 0
 offset_left = 468.0
 offset_top = 556.0
 offset_right = 687.0
@@ -181,12 +201,236 @@ offset_bottom = 582.0
 theme_override_fonts/font = ExtResource("22_5iady")
 text = "Press anywhere to start"
 
-[node name="Button" type="Button" parent="Start Scene"]
+[node name="Button" type="Button" parent="Start Scene/Default"]
+layout_mode = 0
 offset_right = 1155.0
 offset_bottom = 648.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nty8d")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1vvuc")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_glywh")
 
+[node name="Menu" type="Control" parent="Start Scene/Default"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 595.0
+offset_right = 1153.0
+offset_bottom = 631.0
+theme_override_colors/font_color = Color(0.988235, 0.741176, 0.164706, 1)
+theme_override_fonts/font = ExtResource("23_xc26k")
+theme_override_font_sizes/font_size = 25
+text = "$500000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shop" type="TextureButton" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 569.0
+offset_right = 107.0
+offset_bottom = 626.0
+texture_normal = ExtResource("24_4ndw1")
+texture_pressed = ExtResource("24_4ndw1")
+texture_hover = ExtResource("24_4ndw1")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Customize" type="TextureButton" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 571.0
+offset_right = 221.0
+offset_bottom = 628.0
+texture_normal = ExtResource("25_ajjq8")
+texture_pressed = ExtResource("25_ajjq8")
+texture_hover = ExtResource("25_ajjq8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Settings" type="TextureButton" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = 1057.0
+offset_top = 571.0
+offset_right = 1114.0
+offset_bottom = 628.0
+texture_normal = ExtResource("26_u8sjw")
+texture_pressed = ExtResource("26_u8sjw")
+texture_hover = ExtResource("26_u8sjw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Shop" type="Control" parent="Start Scene"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("26_pwdru")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 1171.0
+offset_bottom = 667.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.431373)
+
+[node name="Label2" type="Label" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 151.0
+offset_right = 1151.0
+offset_bottom = 187.0
+theme_override_colors/font_color = Color(0.988235, 0.741176, 0.164706, 1)
+theme_override_fonts/font = ExtResource("23_xc26k")
+theme_override_font_sizes/font_size = 25
+text = "$500000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shop Item" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 464.0
+offset_top = 299.0
+offset_right = 464.0
+offset_bottom = 299.0
+item_name = "Green"
+price = 10
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.929412, 0, 1)
+
+[node name="Shop Item2" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 557.0
+offset_top = 299.0
+offset_right = 557.0
+offset_bottom = 299.0
+item_name = "Yellow"
+price = 10
+texture = ExtResource("1_cppkc")
+color = Color(0.870588, 0.772549, 0, 1)
+
+[node name="Shop Item3" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 643.0
+offset_top = 299.0
+offset_right = 643.0
+offset_bottom = 299.0
+item_name = "Cyan"
+price = 10
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.87451, 0.901961, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -254.0
+offset_right = 1158.0
+offset_bottom = 393.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Shop/CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Start Scene/Shop/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Shop"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 570.0
+offset_right = 1150.0
+offset_bottom = 625.0
+
+[node name="Button" type="Button" parent="Start Scene/Shop/CenterContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_xc26k")
+text = "Purchase"
+
+[node name="TextureButton" type="TextureButton" parent="Start Scene/Shop"]
+modulate = Color(0.807843, 0.807843, 0.807843, 1)
+layout_mode = 0
+offset_left = 1073.0
+offset_top = 24.0
+offset_right = 1123.0
+offset_bottom = 74.0
+texture_normal = ExtResource("30_j8uac")
+texture_pressed = ExtResource("30_j8uac")
+texture_hover = ExtResource("30_j8uac")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Customize" type="Control" parent="Start Scene"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("31_0n82x")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene/Customize"]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 1171.0
+offset_bottom = 667.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.431373)
+
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Customize"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -254.0
+offset_right = 1158.0
+offset_bottom = 393.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Customize/CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Start Scene/Customize/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Customize"
+
+[node name="TextureButton" type="TextureButton" parent="Start Scene/Customize"]
+modulate = Color(0.807843, 0.807843, 0.807843, 1)
+layout_mode = 0
+offset_left = 1073.0
+offset_top = 24.0
+offset_right = 1123.0
+offset_bottom = 74.0
+texture_normal = ExtResource("30_j8uac")
+texture_pressed = ExtResource("30_j8uac")
+texture_hover = ExtResource("30_j8uac")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton" type="TextureButton" parent="Start Scene"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("31_j4kds")
+
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
-[connection signal="pressed" from="Start Scene/Button" to="Start Scene" method="_on_button_pressed"]
+[connection signal="pressed" from="Start Scene/Default/Button" to="Start Scene" method="_on_button_pressed"]
+[connection signal="pressed" from="Start Scene/Shop/CenterContainer2/Button" to="Start Scene/Shop" method="_on_purchase_button_pressed"]
+[connection signal="pressed" from="Start Scene/Shop/TextureButton" to="Start Scene/Shop" method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Start Scene/Customize/TextureButton" to="Start Scene/Customize" method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Start Scene/TextureButton" to="Start Scene" method="_on_texture_button_pressed"]
