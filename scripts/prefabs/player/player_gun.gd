@@ -11,7 +11,8 @@ var time := 0
 func _process(delta):
 	# disable all the weapons
 	for child in get_children():
-		child.on = false
+		if not child is AudioStreamPlayer:
+			child.on = false
 	
 	# enable only the current acquired weapon
 	if has_node(GlobalVariables.current_weapon): get_node(GlobalVariables.current_weapon).on = true
@@ -42,6 +43,9 @@ func _shoot():
 		var angles := [-75, -45, 0, 45, 75]
 		for angle in angles:
 			var new_bullet: CharacterBody2D = bullet.instantiate()
+			new_bullet.scale = Vector2.ONE * 0.5
 			new_bullet.global_position = global_position
 			new_bullet.rotation_degrees = angle
 			get_parent().get_parent().add_child(new_bullet)
+	
+	$AudioStreamPlayer.play()

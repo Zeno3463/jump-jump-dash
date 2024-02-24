@@ -5,6 +5,8 @@ extends Sprite2D
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):
+	get_parent().modulate = GlobalVariables.get_color("BackgroundColor")
+	
 	# move the parallax object to the left with a certain speed multiplier
 	position.x -= delta * parallax_multiplier * GlobalVariables.time_scale
 

@@ -52,6 +52,7 @@ func _unhandled_input(event):
 			_dash_towards()
 
 func _process(_delta):
+	modulate = GlobalVariables.get_color("PlayerColor")
 	# hide the player UI (jump button, pause button) if the game hasn't started
 	if not GlobalVariables.start_game:
 		$CanvasLayer.visible = false
@@ -105,6 +106,7 @@ func _physics_process(delta):
 			# emit dash particle
 			var particle = player_dash_particle.instantiate()
 			particle.global_position = global_position
+			particle.modulate = GlobalVariables.get_color("PlayerColor")
 			get_parent().add_child(particle)
 			particle.emitting = true
 
@@ -144,12 +146,15 @@ func take_damage():
 
 ### PRIVATE FUNCTIONS ###
 func _dash_towards():
+	$AudioStreamPlayer.play()
+	
 	# initiate screen shake
 	get_parent().get_node("Camera2D").shake(100, 0.4, 100)
 	
 	# emit dash particle
 	var particle = player_dash_particle.instantiate()
 	particle.global_position = global_position
+	particle.modulate = GlobalVariables.get_color("PlayerColor")
 	get_parent().add_child(particle)
 	particle.emitting = true
 	

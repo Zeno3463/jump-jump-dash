@@ -22,7 +22,6 @@ speed = 1000
 is_enemy = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.160784, 0.427451, 0.462745, 1)
 position = Vector2(1, 0)
 scale = Vector2(0.0314815, 0.0314815)
 texture = ExtResource("2_ik145")
@@ -55,7 +54,7 @@ color = Color(0.105882, 0.321569, 0.34902, 1)
 [node name="Line2D" type="Line2D" parent="."]
 z_index = -2
 width_curve = SubResource("Curve_f4jbp")
-default_color = Color(0.0470588, 0.180392, 0.2, 0.803922)
+default_color = Color(0.309804, 0.309804, 0.309804, 0.623529)
 script = ExtResource("3_yjdr2")
 trail_length = 20
 

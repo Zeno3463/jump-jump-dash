@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://coiwn7v8rde1u"]
+[gd_scene load_steps=39 format=3 uid="uid://coiwn7v8rde1u"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
@@ -30,7 +30,6 @@
 [ext_resource type="Script" path="res://scripts/UI/Shop.gd" id="26_pwdru"]
 [ext_resource type="Texture2D" uid="uid://c7wykyer1q5ng" path="res://sprites/UI/preference.png" id="26_u8sjw"]
 [ext_resource type="Texture2D" uid="uid://dqg3f6qua71j1" path="res://sprites/UI/cross.png" id="30_j8uac"]
-[ext_resource type="Script" path="res://scripts/UI/Customize.gd" id="31_0n82x"]
 [ext_resource type="Texture2D" uid="uid://dm70tfl72ftw8" path="res://icon.svg" id="31_j4kds"]
 
 [sub_resource type="Curve" id="Curve_geb0e"]
@@ -54,17 +53,18 @@ normal = Vector2(-0.0156231, 0.999878)
 
 [node name="Main" type="Node2D"]
 
-[node name="WhiteSquare" type="Sprite2D" parent="."]
-modulate = Color(0.992157, 0.8, 0.666667, 1)
+[node name="Parallax Background" type="Node2D" parent="."]
+
+[node name="WhiteSquare" type="Sprite2D" parent="Parallax Background"]
+modulate = Color(0.988235, 0.745098, 0.576471, 1)
 z_index = -3
 position = Vector2(9.5, -82)
 scale = Vector2(176.938, 86.5835)
 texture = ExtResource("1_cppkc")
-
-[node name="Parallax Background" type="Node2D" parent="."]
+script = ExtResource("6_mno0m")
 
 [node name="Background" type="Sprite2D" parent="Parallax Background"]
-modulate = Color(0.972549, 0.635294, 0.380392, 0.337255)
+modulate = Color(0.92549, 0.537255, 0.211765, 0.329412)
 z_index = -3
 position = Vector2(-55, -45)
 scale = Vector2(10.0667, 10.0667)
@@ -73,7 +73,7 @@ script = ExtResource("6_mno0m")
 parallax_multiplier = 100.0
 
 [node name="Background2" type="Sprite2D" parent="Parallax Background"]
-modulate = Color(0.972549, 0.635294, 0.380392, 0.337255)
+modulate = Color(0.905882, 0.521569, 0.188235, 0.329412)
 z_index = -3
 position = Vector2(235, 115)
 scale = Vector2(10.0667, 10.0667)
@@ -297,21 +297,31 @@ vertical_alignment = 1
 
 [node name="Shop Item" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
 layout_mode = 1
-offset_left = 464.0
-offset_top = 299.0
-offset_right = 464.0
-offset_bottom = 299.0
+offset_left = 509.0
+offset_top = 219.0
+offset_right = 509.0
+offset_bottom = 219.0
 item_name = "Green"
 price = 10
 texture = ExtResource("1_cppkc")
-color = Color(0, 0.929412, 0, 1)
+color = Color(0, 0.364706, 0, 1)
+
+[node name="Shop Item10" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 430.0
+offset_top = 219.0
+offset_right = 430.0
+offset_bottom = 219.0
+item_name = "Default"
+texture = ExtResource("1_cppkc")
+color = Color(0.729412, 0.133333, 0.321569, 1)
 
 [node name="Shop Item2" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
 layout_mode = 1
-offset_left = 557.0
-offset_top = 299.0
-offset_right = 557.0
-offset_bottom = 299.0
+offset_left = 602.0
+offset_top = 219.0
+offset_right = 602.0
+offset_bottom = 219.0
 item_name = "Yellow"
 price = 10
 texture = ExtResource("1_cppkc")
@@ -319,14 +329,108 @@ color = Color(0.870588, 0.772549, 0, 1)
 
 [node name="Shop Item3" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
 layout_mode = 1
-offset_left = 643.0
-offset_top = 299.0
-offset_right = 643.0
-offset_bottom = 299.0
+offset_left = 688.0
+offset_top = 219.0
+offset_right = 688.0
+offset_bottom = 219.0
 item_name = "Cyan"
 price = 10
 texture = ExtResource("1_cppkc")
-color = Color(0, 0.87451, 0.901961, 1)
+color = Color(0, 0.639216, 0.658824, 1)
+
+[node name="Shop Item4" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 512.0
+offset_top = 355.0
+offset_right = 512.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Green"
+price = 20
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.462745, 0, 1)
+
+[node name="Shop Item11" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 430.0
+offset_top = 355.0
+offset_right = 430.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Default"
+texture = ExtResource("1_cppkc")
+color = Color(0.105882, 0.321569, 0.34902, 1)
+
+[node name="Shop Item5" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 605.0
+offset_top = 355.0
+offset_right = 605.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Yellow"
+price = 20
+texture = ExtResource("1_cppkc")
+color = Color(0.854902, 0.756863, 0, 1)
+
+[node name="Shop Item6" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 691.0
+offset_top = 355.0
+offset_right = 691.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Cyan"
+price = 20
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.501961, 0.521569, 1)
+
+[node name="Shop Item7" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 510.0
+offset_top = 486.0
+offset_right = 510.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Green"
+price = 100
+texture = ExtResource("1_cppkc")
+color = Color(0.388235, 0.658824, 0.384314, 1)
+
+[node name="Shop Item12" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 434.0
+offset_top = 486.0
+offset_right = 434.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Default"
+texture = ExtResource("1_cppkc")
+color = Color(0.992157, 0.8, 0.666667, 1)
+
+[node name="Shop Item8" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 603.0
+offset_top = 486.0
+offset_right = 603.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Yellow"
+price = 100
+texture = ExtResource("1_cppkc")
+color = Color(0.701961, 0.658824, 0.337255, 1)
+
+[node name="Shop Item9" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 689.0
+offset_top = 486.0
+offset_right = 689.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Light"
+price = 1
+texture = ExtResource("1_cppkc")
+color = Color(0.180392, 0.701961, 0.717647, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="Start Scene/Shop"]
 layout_mode = 0
@@ -372,56 +476,6 @@ texture_hover = ExtResource("30_j8uac")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Customize" type="Control" parent="Start Scene"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-script = ExtResource("31_0n82x")
-
-[node name="ColorRect" type="ColorRect" parent="Start Scene/Customize"]
-layout_mode = 0
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 1171.0
-offset_bottom = 667.0
-mouse_filter = 2
-color = Color(0, 0, 0, 0.431373)
-
-[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Customize"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = -254.0
-offset_right = 1158.0
-offset_bottom = 393.0
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Customize/CenterContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="Start Scene/Customize/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
-theme_override_fonts/font = ExtResource("21_u2ji1")
-theme_override_font_sizes/font_size = 90
-text = "Customize"
-
-[node name="TextureButton" type="TextureButton" parent="Start Scene/Customize"]
-modulate = Color(0.807843, 0.807843, 0.807843, 1)
-layout_mode = 0
-offset_left = 1073.0
-offset_top = 24.0
-offset_right = 1123.0
-offset_bottom = 74.0
-texture_normal = ExtResource("30_j8uac")
-texture_pressed = ExtResource("30_j8uac")
-texture_hover = ExtResource("30_j8uac")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="TextureButton" type="TextureButton" parent="Start Scene"]
 visible = false
 offset_right = 40.0
@@ -432,5 +486,4 @@ texture_normal = ExtResource("31_j4kds")
 [connection signal="pressed" from="Start Scene/Default/Button" to="Start Scene" method="_on_button_pressed"]
 [connection signal="pressed" from="Start Scene/Shop/CenterContainer2/Button" to="Start Scene/Shop" method="_on_purchase_button_pressed"]
 [connection signal="pressed" from="Start Scene/Shop/TextureButton" to="Start Scene/Shop" method="_on_texture_button_pressed"]
-[connection signal="pressed" from="Start Scene/Customize/TextureButton" to="Start Scene/Customize" method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Start Scene/TextureButton" to="Start Scene" method="_on_texture_button_pressed"]

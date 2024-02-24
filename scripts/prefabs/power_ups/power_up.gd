@@ -10,4 +10,10 @@ func _on_area_2d_body_entered(body):
 	if body is PlayerCLass:
 		GlobalVariables.current_weapon = WeaponClass.keys()[weapon]
 		get_parent().get_parent().get_node("Player/CanvasLayer/TextureRect").texture = $Sprite2D.texture
+		var audio_player = AudioStreamPlayer.new()
+		audio_player.stream = load("res://audio/powerUp.wav")
+		add_child(audio_player)
+		audio_player.play()
+		visible = false
+		await audio_player.finished
 		queue_free()

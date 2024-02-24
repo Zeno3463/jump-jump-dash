@@ -13,13 +13,24 @@ var current_weapon := ""
 
 ### Game Data ###
 var coins = 0
-var purchased_items = []
+var purchased_items = [
+	"Default", "Enemy Default", "Background Default"
+]
+var names_of_selected_items = {
+	PlayerColor = "Default",
+	EnemyColor = "Enemy Default",
+	BackgroundColor = "Background Default"
+}
 var selected_items = {
-	skin_color = "default"
+	PlayerColor = "(0.729, 0.133, 0.322, 1)",
+	EnemyColor = "(0.161, 0.427, 0.463, 1)",
+	BackgroundColor = "(0.992, 0.8, 0.667, 1)"
 }
 
 ### System Functions ###
 func _ready():
+	#clear_history()
+	#save_game()
 	load_game()
 
 ### Public Functions ###
@@ -35,6 +46,7 @@ func load_game():
 		coins = data["coins"]
 		purchased_items = data["purchased_items"]
 		selected_items = data["selected_items"]
+		names_of_selected_items = data["names_of_selected_items"]
 
 func save_game():
 	# open the existing user data file or create a new one
@@ -44,7 +56,8 @@ func save_game():
 	var data: Dictionary = {
 		coins = coins,
 		purchased_items = purchased_items,
-		selected_items = selected_items
+		selected_items = selected_items,
+		names_of_selected_items = names_of_selected_items
 	}
 	
 	# store the dictionary as a string into the file
@@ -54,4 +67,12 @@ func save_game():
 func clear_history():
 	# delete user data
 	DirAccess.remove_absolute("user://data.save")
+	
+func get_color(target: String) -> Color:
+	if selected_items[target] is Color:
+		return selected_items[target]
+	else: 
+		var col = selected_items[target].replace(" ", "").replace("(", "").replace(")", "").split(",")
+		return Color(float(col[0]),float(col[1]),float(col[2]),float(col[3]))
+
 

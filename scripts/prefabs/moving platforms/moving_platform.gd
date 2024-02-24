@@ -21,6 +21,9 @@ func _process(delta):
 	# if the platform moved too far to the left, destroy the platform
 	if global_position.x <= -800:
 		queue_free()
+		
+	if is_enemy:
+		modulate = GlobalVariables.get_color("EnemyColor")
 
 ### PUBLIC FUNCTIONS ###
 func take_damage():
@@ -33,12 +36,18 @@ func take_damage():
 	# enable screen shake
 	get_parent().get_parent().get_node("Camera2D").shake(170, 0.3, 170)
 	
+	var audio_player = AudioStreamPlayer.new()
+	audio_player.stream = load("res://audio/hitHurt.wav")
+	add_child(audio_player)
+	audio_player.play()
+	
 	# take out one life from the enemy
 	life -= 1
 	
 	# if the enemy has no life, destroy the enemy
 	if life == 0:
 		GlobalVariables.coins += 1
+		await audio_player.finished
 		queue_free()
 		return
 		

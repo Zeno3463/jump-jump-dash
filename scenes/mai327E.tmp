@@ -1,0 +1,489 @@
+[gd_scene load_steps=39 format=3 uid="uid://coiwn7v8rde1u"]
+
+[ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
+[ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
+[ext_resource type="PackedScene" uid="uid://c1ca80mki1hxo" path="res://scenes/prefabs/enemies/laser.tscn" id="2_f2fxy"]
+[ext_resource type="PackedScene" uid="uid://bio6672tqdkhw" path="res://scenes/prefabs/moving_platform.tscn" id="3_oljps"]
+[ext_resource type="PackedScene" uid="uid://dcnes4jnid5fh" path="res://scenes/prefabs/enemies/moving_spikes.tscn" id="4_712a7"]
+[ext_resource type="Script" path="res://scripts/game loop/Moving Platform Spawner.gd" id="4_bisks"]
+[ext_resource type="PackedScene" uid="uid://bsku70rqhvndp" path="res://scenes/prefabs/player/player.tscn" id="4_eg2rf"]
+[ext_resource type="PackedScene" uid="uid://17yuadc507it" path="res://scenes/prefabs/enemies/shooter enemy/shooter_enemy.tscn" id="5_vyi40"]
+[ext_resource type="PackedScene" uid="uid://dypesk6j5nx70" path="res://scenes/prefabs/enemies/diagonal laser.tscn" id="6_lrerv"]
+[ext_resource type="Script" path="res://scripts/effects/Parallax Background.gd" id="6_mno0m"]
+[ext_resource type="PackedScene" uid="uid://bbsn0yefuon2g" path="res://scenes/prefabs/enemies/horizontal laser.tscn" id="7_52107"]
+[ext_resource type="PackedScene" uid="uid://cpi5x0ne7qpcy" path="res://scenes/prefabs/player/player_gun.tscn" id="9_7nt0q"]
+[ext_resource type="PackedScene" uid="uid://dtfp5w7o4bptn" path="res://scenes/prefabs/enemies/gun enemy/gun_enemy.tscn" id="9_x0xcv"]
+[ext_resource type="PackedScene" uid="uid://djh4kfarf80en" path="res://scenes/prefabs/player/player_bullet.tscn" id="10_1cob8"]
+[ext_resource type="PackedScene" uid="uid://b8dhlpmkpdim6" path="res://scenes/prefabs/power ups/penta_gun_power_up.tscn" id="12_fu2ev"]
+[ext_resource type="PackedScene" uid="uid://deds6jucieyes" path="res://scenes/prefabs/power ups/laser_power_up.tscn" id="13_77xn6"]
+[ext_resource type="PackedScene" uid="uid://rplh3floshr" path="res://scenes/prefabs/enemies/speed_enemy.tscn" id="14_f2hyh"]
+[ext_resource type="Texture2D" uid="uid://8va4no2easls" path="res://sprites/parallax background/background.png" id="14_n57s8"]
+[ext_resource type="PackedScene" uid="uid://crq8v116euc7" path="res://scenes/prefabs/power ups/spike_power_up.tscn" id="15_dweuu"]
+[ext_resource type="Script" path="res://scripts/game loop/Start Scene.gd" id="20_bubng"]
+[ext_resource type="Script" path="res://scripts/UI/Default.gd" id="21_lvg52"]
+[ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="21_u2ji1"]
+[ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="22_5iady"]
+[ext_resource type="FontFile" uid="uid://cx1p0dcc82jus" path="res://fonts/Orbitron-SemiBold.ttf" id="23_xc26k"]
+[ext_resource type="Texture2D" uid="uid://dce240ppf3ra1" path="res://sprites/UI/shopping-cart.png" id="24_4ndw1"]
+[ext_resource type="Texture2D" uid="uid://b05bnkeap65bp" path="res://sprites/UI/settings.png" id="25_ajjq8"]
+[ext_resource type="PackedScene" uid="uid://6vctaccvfrt" path="res://scenes/UI/shop_item.tscn" id="26_boyvy"]
+[ext_resource type="Script" path="res://scripts/UI/Shop.gd" id="26_pwdru"]
+[ext_resource type="Texture2D" uid="uid://c7wykyer1q5ng" path="res://sprites/UI/preference.png" id="26_u8sjw"]
+[ext_resource type="Texture2D" uid="uid://dqg3f6qua71j1" path="res://sprites/UI/cross.png" id="30_j8uac"]
+[ext_resource type="Texture2D" uid="uid://dm70tfl72ftw8" path="res://icon.svg" id="31_j4kds"]
+
+[sub_resource type="Curve" id="Curve_geb0e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kkjl3"]
+normal = Vector2(0.999913, 0.0131568)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f05iu"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_alilj"]
+normal = Vector2(-0.0156231, 0.999878)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nty8d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1vvuc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glywh"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Parallax Background" type="Node2D" parent="."]
+
+[node name="WhiteSquare" type="Sprite2D" parent="Parallax Background"]
+modulate = Color(0.988235, 0.745098, 0.576471, 1)
+z_index = -3
+position = Vector2(9.5, -82)
+scale = Vector2(176.938, 86.5835)
+texture = ExtResource("1_cppkc")
+script = ExtResource("6_mno0m")
+
+[node name="Background" type="Sprite2D" parent="Parallax Background"]
+modulate = Color(0.92549, 0.537255, 0.211765, 0.329412)
+z_index = -3
+position = Vector2(-55, -45)
+scale = Vector2(10.0667, 10.0667)
+texture = ExtResource("14_n57s8")
+script = ExtResource("6_mno0m")
+parallax_multiplier = 100.0
+
+[node name="Background2" type="Sprite2D" parent="Parallax Background"]
+modulate = Color(0.905882, 0.521569, 0.188235, 0.329412)
+z_index = -3
+position = Vector2(235, 115)
+scale = Vector2(10.0667, 10.0667)
+texture = ExtResource("14_n57s8")
+script = ExtResource("6_mno0m")
+parallax_multiplier = 50.0
+
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("4_bisks")
+moving_platforms = Array[PackedScene]([ExtResource("2_f2fxy"), ExtResource("3_oljps"), ExtResource("4_712a7"), ExtResource("5_vyi40"), ExtResource("6_lrerv"), ExtResource("7_52107"), ExtResource("9_x0xcv"), ExtResource("9_x0xcv"), ExtResource("12_fu2ev"), ExtResource("13_77xn6"), ExtResource("14_f2hyh"), ExtResource("15_dweuu"), ExtResource("14_f2hyh"), ExtResource("14_f2hyh"), ExtResource("9_x0xcv"), ExtResource("5_vyi40"), ExtResource("7_52107"), ExtResource("14_f2hyh"), ExtResource("4_712a7")])
+
+[node name="Upper bound" type="Node2D" parent="Spawner"]
+position = Vector2(654, -326)
+
+[node name="Lower bound" type="Node2D" parent="Spawner"]
+position = Vector2(659, 166)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1, 249)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0, 47.3355)
+scale = Vector2(163.25, 16.4169)
+texture = ExtResource("1_cppkc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+scale = Vector2(76.75, 10.5)
+polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("1_bb0av")
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(538, 214)
+scale = Vector2(77.5, 15.375)
+amount = 100
+emission_shape = 3
+emission_rect_extents = Vector2(10, 50)
+gravity = Vector2(0, 98)
+scale_amount_min = 0.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_geb0e")
+color = Color(0.207843, 0.207843, 0.207843, 0.454902)
+
+[node name="Player" parent="." instance=ExtResource("4_eg2rf")]
+position = Vector2(-1, 148)
+
+[node name="Player Gun" parent="Player" instance=ExtResource("9_7nt0q")]
+start_time = 15.0
+bullet = ExtResource("10_1cob8")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-577, 70)
+shape = SubResource("WorldBoundaryShape2D_kkjl3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(580, 67)
+shape = SubResource("WorldBoundaryShape2D_f05iu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(2, -331)
+shape = SubResource("WorldBoundaryShape2D_alilj")
+
+[node name="Start Scene" type="CanvasLayer" parent="."]
+script = ExtResource("20_bubng")
+
+[node name="Default" type="Control" parent="Start Scene"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("21_lvg52")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene/Default"]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 1171.0
+offset_bottom = 667.0
+color = Color(0, 0, 0, 0.431373)
+
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Default"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -89.0
+offset_right = 1152.0
+offset_bottom = 558.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Default/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Start Scene/Default/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Jump"
+
+[node name="Label2" type="Label" parent="Start Scene/Default/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.223529, 0.415686, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Jump"
+
+[node name="Label3" type="Label" parent="Start Scene/Default/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Dash"
+
+[node name="Label" type="Label" parent="Start Scene/Default"]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 556.0
+offset_right = 687.0
+offset_bottom = 582.0
+theme_override_fonts/font = ExtResource("22_5iady")
+text = "Press anywhere to start"
+
+[node name="Button" type="Button" parent="Start Scene/Default"]
+layout_mode = 0
+offset_right = 1155.0
+offset_bottom = 648.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nty8d")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1vvuc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_glywh")
+
+[node name="Menu" type="Control" parent="Start Scene/Default"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 595.0
+offset_right = 1153.0
+offset_bottom = 631.0
+theme_override_colors/font_color = Color(0.988235, 0.741176, 0.164706, 1)
+theme_override_fonts/font = ExtResource("23_xc26k")
+theme_override_font_sizes/font_size = 25
+text = "$500000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shop" type="TextureButton" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 569.0
+offset_right = 107.0
+offset_bottom = 626.0
+texture_normal = ExtResource("24_4ndw1")
+texture_pressed = ExtResource("24_4ndw1")
+texture_hover = ExtResource("24_4ndw1")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Customize" type="TextureButton" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 571.0
+offset_right = 221.0
+offset_bottom = 628.0
+texture_normal = ExtResource("25_ajjq8")
+texture_pressed = ExtResource("25_ajjq8")
+texture_hover = ExtResource("25_ajjq8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Settings" type="TextureButton" parent="Start Scene/Default/Menu"]
+layout_mode = 0
+offset_left = 1057.0
+offset_top = 571.0
+offset_right = 1114.0
+offset_bottom = 628.0
+texture_normal = ExtResource("26_u8sjw")
+texture_pressed = ExtResource("26_u8sjw")
+texture_hover = ExtResource("26_u8sjw")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Shop" type="Control" parent="Start Scene"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("26_pwdru")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 1171.0
+offset_bottom = 667.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.431373)
+
+[node name="Label2" type="Label" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 151.0
+offset_right = 1151.0
+offset_bottom = 187.0
+theme_override_colors/font_color = Color(0.988235, 0.741176, 0.164706, 1)
+theme_override_fonts/font = ExtResource("23_xc26k")
+theme_override_font_sizes/font_size = 25
+text = "$500000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shop Item" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 509.0
+offset_top = 219.0
+offset_right = 509.0
+offset_bottom = 219.0
+item_name = "Green"
+price = 10
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.364706, 0, 1)
+
+[node name="Shop Item10" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 430.0
+offset_top = 219.0
+offset_right = 430.0
+offset_bottom = 219.0
+item_name = "Default"
+texture = ExtResource("1_cppkc")
+color = Color(0.729412, 0.133333, 0.321569, 1)
+
+[node name="Shop Item2" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 602.0
+offset_top = 219.0
+offset_right = 602.0
+offset_bottom = 219.0
+item_name = "Yellow"
+price = 10
+texture = ExtResource("1_cppkc")
+color = Color(0.870588, 0.772549, 0, 1)
+
+[node name="Shop Item3" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 688.0
+offset_top = 219.0
+offset_right = 688.0
+offset_bottom = 219.0
+item_name = "Cyan"
+price = 10
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.639216, 0.658824, 1)
+
+[node name="Shop Item4" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 512.0
+offset_top = 355.0
+offset_right = 512.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Green"
+price = 20
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.462745, 0, 1)
+
+[node name="Shop Item11" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 430.0
+offset_top = 355.0
+offset_right = 430.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Default"
+texture = ExtResource("1_cppkc")
+color = Color(0.105882, 0.321569, 0.34902, 1)
+
+[node name="Shop Item5" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 605.0
+offset_top = 355.0
+offset_right = 605.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Yellow"
+price = 20
+texture = ExtResource("1_cppkc")
+color = Color(0.854902, 0.756863, 0, 1)
+
+[node name="Shop Item6" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 691.0
+offset_top = 355.0
+offset_right = 691.0
+offset_bottom = 355.0
+item_class = 2
+item_name = "Enemy Cyan"
+price = 20
+texture = ExtResource("1_cppkc")
+color = Color(0, 0.501961, 0.521569, 1)
+
+[node name="Shop Item7" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 510.0
+offset_top = 486.0
+offset_right = 510.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Green"
+price = 100
+texture = ExtResource("1_cppkc")
+color = Color(0.388235, 0.658824, 0.384314, 1)
+
+[node name="Shop Item12" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 434.0
+offset_top = 486.0
+offset_right = 434.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Default"
+texture = ExtResource("1_cppkc")
+color = Color(0.992157, 0.8, 0.666667, 1)
+
+[node name="Shop Item8" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 603.0
+offset_top = 486.0
+offset_right = 603.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Yellow"
+price = 100
+texture = ExtResource("1_cppkc")
+color = Color(0.701961, 0.658824, 0.337255, 1)
+
+[node name="Shop Item9" parent="Start Scene/Shop" instance=ExtResource("26_boyvy")]
+layout_mode = 1
+offset_left = 689.0
+offset_top = 486.0
+offset_right = 689.0
+offset_bottom = 486.0
+item_class = 1
+item_name = "Background Light"
+price = 1
+texture = ExtResource("1_cppkc")
+color = Color(0.180392, 0.701961, 0.717647, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -254.0
+offset_right = 1158.0
+offset_bottom = 393.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Shop/CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Start Scene/Shop/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Shop"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Start Scene/Shop"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 570.0
+offset_right = 1150.0
+offset_bottom = 625.0
+
+[node name="Button" type="Button" parent="Start Scene/Shop/CenterContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("23_xc26k")
+text = "Purchase"
+
+[node name="TextureButton" type="TextureButton" parent="Start Scene/Shop"]
+modulate = Color(0.807843, 0.807843, 0.807843, 1)
+layout_mode = 0
+offset_left = 1073.0
+offset_top = 24.0
+offset_right = 1123.0
+offset_bottom = 74.0
+texture_normal = ExtResource("30_j8uac")
+texture_pressed = ExtResource("30_j8uac")
+texture_hover = ExtResource("30_j8uac")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton" type="TextureButton" parent="Start Scene"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("31_j4kds")
+
+[connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
+[connection signal="pressed" from="Start Scene/Default/Button" to="Start Scene" method="_on_button_pressed"]
+[connection signal="pressed" from="Start Scene/Shop/CenterContainer2/Button" to="Start Scene/Shop" method="_on_purchase_button_pressed"]
+[connection signal="pressed" from="Start Scene/Shop/TextureButton" to="Start Scene/Shop" method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Start Scene/TextureButton" to="Start Scene" method="_on_texture_button_pressed"]

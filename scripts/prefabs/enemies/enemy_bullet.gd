@@ -18,6 +18,8 @@ func _process(delta):
 	# after the bullet's lifetime has ended, destroy the bullet
 	lifetime -= delta * GlobalVariables.time_scale
 	if lifetime <= 0: queue_free()
+	
+	modulate = GlobalVariables.get_color("EnemyColor")
 
 func _physics_process(delta):
 	# move towards player with a designated speed
@@ -40,12 +42,18 @@ func take_damage():
 	# enable screen shake
 	get_parent().get_node("Camera2D").shake(170, 0.3, 170)
 	
+	var audio_player = AudioStreamPlayer.new()
+	audio_player.stream = load("res://audio/hitHurt.wav")
+	add_child(audio_player)
+	audio_player.play()
+	
 	# take out one life from the enemy
 	life -= 1
 	
 	# if the enemy has no life, destroy the enemy
 	if life == 0:
 		GlobalVariables.coins += 1
+		await  audio_player.finished
 		queue_free()
 		return
 	

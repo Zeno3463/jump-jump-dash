@@ -21,7 +21,6 @@ func _on_area_2d_body_entered(body):
 	if body is PlayerCLass:
 		body.take_damage()
 
-
 ### PRIVATE FUNCTIONS ###
 func _shoot():
 	# shoot a new bullet towards the player

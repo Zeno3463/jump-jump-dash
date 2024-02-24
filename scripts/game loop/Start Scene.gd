@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 ### System Functions ###
-func _process(delta):
+func _process(_delta):
 	$Default/Menu/Label.text = "$" + str(GlobalVariables.coins)
 
 func _on_button_pressed():

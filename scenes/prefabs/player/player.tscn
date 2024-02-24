@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bsku70rqhvndp"]
+[gd_scene load_steps=20 format=3 uid="uid://bsku70rqhvndp"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player/player.gd" id="1_i8wi2"]
 [ext_resource type="PackedScene" uid="uid://bok6rotoprji7" path="res://scenes/effects/player_dash_particle.tscn" id="2_jpc82"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/game loop/Pause Screen.gd" id="9_dry52"]
 [ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="9_hpbe5"]
 [ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="10_pub22"]
+[ext_resource type="AudioStream" uid="uid://bem1vtl5khqx" path="res://audio/click.wav" id="13_ayd3j"]
 
 [sub_resource type="Curve" id="Curve_xirim"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -49,6 +50,7 @@ width = 20.0
 width_curve = SubResource("Curve_xirim")
 default_color = Color(1, 1, 1, 0.447059)
 script = ExtResource("4_2v40p")
+is_player_trail = true
 
 [node name="Drag Line" type="Line2D" parent="."]
 visible = false
@@ -65,7 +67,6 @@ texture = ExtResource("5_1sk22")
 shape = SubResource("RectangleShape2D_gehgw")
 
 [node name="WhiteSquare" type="Sprite2D" parent="."]
-modulate = Color(0.87451, 0.215686, 0.407843, 1)
 scale = Vector2(1.375, 1.375)
 texture = ExtResource("5_1sk22")
 
@@ -156,6 +157,9 @@ offset_bottom = 650.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ox613")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h3gvx")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wu65w")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_ayd3j")
 
 [connection signal="pressed" from="CanvasLayer/Pause Button" to="CanvasLayer/Pause Screen" method="_on_pause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_texture_button_pressed"]

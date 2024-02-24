@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcnes4jnid5fh"]
+[gd_scene load_steps=6 format=3 uid="uid://dcnes4jnid5fh"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/enemies/moving_spikes.gd" id="1_kos5f"]
 [ext_resource type="Texture2D" uid="uid://betg0k3njpb22" path="res://sprites/spike.png" id="2_01cud"]
@@ -9,6 +9,9 @@ radius = 25.318
 [sub_resource type="CircleShape2D" id="CircleShape2D_la6on"]
 radius = 26.0
 
+[sub_resource type="Gradient" id="Gradient_leu2v"]
+colors = PackedColorArray(0.309804, 0.309804, 0.309804, 1, 1, 1, 1, 0)
+
 [node name="Moving Spikes" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 2
@@ -16,7 +19,6 @@ script = ExtResource("1_kos5f")
 is_enemy = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.160784, 0.427451, 0.462745, 1)
 position = Vector2(1, 0)
 scale = Vector2(0.0537037, 0.0537037)
 texture = ExtResource("2_01cud")
@@ -31,7 +33,6 @@ disabled = true
 shape = SubResource("CircleShape2D_la6on")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-modulate = Color(0.678431, 0.678431, 0.678431, 1)
 amount = 100
 emission_shape = 1
 emission_sphere_radius = 108.24
@@ -47,6 +48,6 @@ damping_max = 25.676
 angle_max = 253.0
 scale_amount_min = 0.0
 scale_amount_max = 7.0
-color = Color(0.105882, 0.321569, 0.34902, 1)
+color_ramp = SubResource("Gradient_leu2v")
 
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

@@ -19,14 +19,12 @@ start_time = 3
 is_enemy = true
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-modulate = Color(0.160784, 0.427451, 0.462745, 1)
 position = Vector2(-21, 0)
 scale = Vector2(2.625, 1.25)
 texture = ExtResource("3_lrnmm")
 region_rect = Rect2(0.482468, 2.77791, 15.0712, 12.9683)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.160784, 0.427451, 0.462745, 1)
 scale = Vector2(2.625, 2.625)
 texture = ExtResource("3_lrnmm")
 

@@ -40,6 +40,7 @@ offset_left = -17.0
 offset_top = -11.0
 offset_right = 57.0
 offset_bottom = 77.0
+mouse_filter = 2
 color = Color(0.72549, 0.72549, 0.72549, 0.117647)
 
 [node name="Purchased" type="ColorRect" parent="."]
@@ -49,4 +50,5 @@ offset_left = -17.0
 offset_top = -11.0
 offset_right = 57.0
 offset_bottom = 77.0
+mouse_filter = 2
 color = Color(0.145098, 0.145098, 0.145098, 0.282353)

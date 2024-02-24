@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):
+	modulate = GlobalVariables.get_color("PlayerColor")
 	# after lifetime seconds, destroy the bullet
 	lifetime -= delta * GlobalVariables.time_scale
 	if lifetime <= 0: queue_free()

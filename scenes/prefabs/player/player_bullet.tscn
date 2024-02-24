@@ -23,7 +23,7 @@ speed = 25000
 lifetime = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.462745, 0.0627451, 0.192157, 0.85098)
+modulate = Color(0.65098, 0.65098, 0.65098, 1)
 z_index = -1
 scale = Vector2(0.0222222, 0.0222222)
 texture = ExtResource("2_ddtmy")
@@ -41,8 +41,9 @@ shape = SubResource("CircleShape2D_e7jh1")
 z_index = -2
 width = 15.0
 width_curve = SubResource("Curve_wtnhm")
-default_color = Color(0.372549, 0.0431373, 0.14902, 0.560784)
+default_color = Color(0.419608, 0.419608, 0.419608, 0.694118)
 script = ExtResource("3_nq3nj")
 trail_length = 100
+is_player_trail = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
