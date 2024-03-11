@@ -27,6 +27,7 @@ func _on_purchase_button_pressed():
 	if GlobalVariables.coins >= selected_item.price:
 		GlobalVariables.coins -= selected_item.price
 		GlobalVariables.purchased_items.append(selected_item.item_name)
+		selected_item.equip_current_item()
 		selected_item = null
 		selected_item_name = ""
 	GlobalVariables.save_game()

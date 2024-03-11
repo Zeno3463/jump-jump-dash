@@ -14,7 +14,8 @@ colors = PackedColorArray(0.372549, 0.0431373, 0.14902, 1, 0, 0, 0, 0)
 script = ExtResource("1_tu4r2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.462745, 0.0627451, 0.192157, 0.454902)
+modulate = Color(0.270588, 0.270588, 0.270588, 0.454902)
+z_index = -1
 position = Vector2(570.51, 1.93427e-05)
 rotation = 1.5708
 scale = Vector2(1.125, 71.3137)

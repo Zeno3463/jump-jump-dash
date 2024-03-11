@@ -5,17 +5,17 @@ class_name PlayerCLass
 ### CONSTANTS ###
 const SPEED = 300.0
 const JUMP_VELOCITY = -650.0
-const DASH_SPEED = 600
+const DASH_SPEED = 900
 
 ### PUBLIC VARIABLES ###
 @export var player_dash_particle: PackedScene
 @export var player_power_up_particle: PackedScene
+@export var player_die_particle: PackedScene
 @export var max_life = 3
 
 ### VARIABLES ###
-@onready var original_color = $WhiteSquare.modulate
 @onready var life = max_life
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity = 1500
 var rotating := false
 var dashing := false
 var dir := Vector2.ZERO # keep track of the direction of rotation of the player when the player clicks the left mouse button
@@ -74,6 +74,7 @@ func _process(_delta):
 		# make the screen darker when rotating
 		var tween := get_tree().create_tween()
 		tween.tween_property($Sprite2D2, "modulate", Color8(0, 0, 0, 100), 0.1)
+		$Light.modulate = Color8(255, 255, 255, 170)
 		# slow down time when rotating
 		GlobalVariables.time_scale = GlobalVariables.slowed_down_time_scale
 		# rotate the player according to the mouse movement
@@ -84,6 +85,7 @@ func _process(_delta):
 		# revert the brightness of the screen
 		var tween = get_tree().create_tween()
 		tween.tween_property($Sprite2D2, "modulate", Color8(15, 15, 15, 0), 0.1)
+		$Light.modulate = Color8(255, 255, 255, 70)
 		
 		# speed up the time to the original speed of time
 		GlobalVariables.time_scale = GlobalVariables.max_time_scale
@@ -113,8 +115,8 @@ func _physics_process(delta):
 	# handle jump
 	if Input.is_action_just_pressed("ui_up"): velocity.y = JUMP_VELOCITY
 
-	# disable horizontal movement if not dashing
-	if not dashing and is_on_floor(): velocity.x = move_toward(velocity.x, 0, SPEED)
+	# lerp horizontal movement to 0 if not dashing
+	if not dashing and is_on_floor(): velocity.x = move_toward(velocity.x, 0, SPEED * 0.1)
 
 	# slow down the velocity of the player if the player is rotating
 	if rotating: velocity *= 0.7
@@ -122,7 +124,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 # when the touch screen jump button is pressed, initiate jump
-func _on_texture_button_pressed():
+func _on_texture_button_button_down():
 	if not GlobalVariables.start_game: return
 	
 	velocity.y = JUMP_VELOCITY
@@ -130,26 +132,42 @@ func _on_texture_button_pressed():
 ### PUBLIC FUNCTIONS ###
 func take_damage():
 	life -= 1
-	
+
 	# flash a white color on the player texture, while pausing the game for a short moment
 	get_tree().paused = true
-	$WhiteSquare.modulate = Color.WHITE
-	await get_tree().create_timer(0.2).timeout
+	modulate = Color.WHITE
+	await get_tree().create_timer(0.4).timeout
 	get_tree().paused = false
-	$WhiteSquare.modulate = original_color
+	modulate = GlobalVariables.get_color("PlayerColor")
 	
 	# if player runs out of life, go back to menu screen
 	if life <= 0:
-		GlobalVariables.save_game()
-		GlobalVariables.start_game = false
-		get_tree().reload_current_scene()
+		_die()
 
 ### PRIVATE FUNCTIONS ###
+func _die():
+	GlobalVariables.save_game()
+	GlobalVariables.start_game = false
+	
+	get_parent().get_node("Camera2D").shake(150, 5, 150)
+	
+	$WhiteSquare.visible = false
+	$"Player Gun".visible = false
+	
+	var particle: CPUParticles2D = player_die_particle.instantiate()
+	particle.global_position = global_position
+	get_parent().add_child(particle)
+	particle.emitting = true
+	
+	await get_tree().create_timer(1).timeout
+	
+	$"Death Screen".visible = true
+
 func _dash_towards():
 	$AudioStreamPlayer.play()
 	
 	# initiate screen shake
-	get_parent().get_node("Camera2D").shake(100, 0.4, 100)
+	get_parent().get_node("Camera2D").shake(250, 0.4, 250)
 	
 	# emit dash particle
 	var particle = player_dash_particle.instantiate()
@@ -164,3 +182,12 @@ func _dash_towards():
 	# dynamically set the player velocity to dash towards the direction of rotation of the player
 	velocity = Vector2.RIGHT.rotated(atan2(dir.y, dir.x)) * DASH_SPEED
 
+### PUBLIC FUNCTIONS ###
+func new_weapon_effect():
+	# emit new weapon particle
+	get_parent().get_node("Camera2D").shake(500, 0.7, 500)
+	var particle = player_power_up_particle.instantiate()
+	particle.global_position = global_position
+	particle.modulate = GlobalVariables.get_color("PlayerColor")
+	get_parent().add_child(particle)
+	particle.emitting = true

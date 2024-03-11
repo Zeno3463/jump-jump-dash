@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 ### PUBLIC VARIABLES ###
 @export var speed = 500
-@export var lifetime = 1
+@export var lifetime = 3
 
 ### SYSTEM FUNCTIONS ###
 func _process(delta):

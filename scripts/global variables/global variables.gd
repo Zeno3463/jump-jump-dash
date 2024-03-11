@@ -9,7 +9,7 @@ var slowed_down_time_scale = 0.7
 var time_scale = 1
 
 ### Current Weapon ###
-var current_weapon := ""
+var current_weapon := "Default"
 
 ### Game Data ###
 var coins = 0

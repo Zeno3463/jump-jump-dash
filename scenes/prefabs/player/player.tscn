@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://bsku70rqhvndp"]
+[gd_scene load_steps=23 format=3 uid="uid://bsku70rqhvndp"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player/player.gd" id="1_i8wi2"]
 [ext_resource type="PackedScene" uid="uid://bok6rotoprji7" path="res://scenes/effects/player_dash_particle.tscn" id="2_jpc82"]
 [ext_resource type="Texture2D" uid="uid://copuqp4jbfc3d" path="res://sprites/Lightmap.png" id="3_tabpe"]
 [ext_resource type="PackedScene" uid="uid://bov16rc3bluyd" path="res://scenes/effects/player_power_up_particle.tscn" id="3_ubh3l"]
 [ext_resource type="Script" path="res://scripts/prefabs/player/trail.gd" id="4_2v40p"]
+[ext_resource type="PackedScene" uid="uid://v361uhxmvlvc" path="res://scenes/effects/player_die_particle.tscn" id="4_706vr"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="5_1sk22"]
 [ext_resource type="Texture2D" uid="uid://ocp140y7own3" path="res://sprites/UI/Pause-Button-Transparent.png" id="7_qpdh1"]
 [ext_resource type="Texture2D" uid="uid://bjung6yxg2fwr" path="res://sprites/UI/up arrow.png" id="7_x08hq"]
@@ -13,6 +14,8 @@
 [ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="9_hpbe5"]
 [ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="10_pub22"]
 [ext_resource type="AudioStream" uid="uid://bem1vtl5khqx" path="res://audio/click.wav" id="13_ayd3j"]
+[ext_resource type="Script" path="res://scripts/UI/Death Screen.gd" id="14_rsml0"]
+[ext_resource type="Texture2D" uid="uid://dmupd34ibjy8w" path="res://sprites/UI/home.png" id="15_y236a"]
 
 [sub_resource type="Curve" id="Curve_xirim"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -37,11 +40,11 @@ collision_mask = 7
 script = ExtResource("1_i8wi2")
 player_dash_particle = ExtResource("2_jpc82")
 player_power_up_particle = ExtResource("3_ubh3l")
+player_die_particle = ExtResource("4_706vr")
 
 [node name="Light" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.607843)
-scale = Vector2(1.20573, 1.20573)
+modulate = Color(1, 1, 1, 0.27451)
+scale = Vector2(0.894531, 0.894531)
 texture = ExtResource("3_tabpe")
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -60,6 +63,7 @@ default_color = Color(1, 1, 1, 0.447059)
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 modulate = Color(0.0588235, 0.0588235, 0.0588235, 0.431373)
+z_index = 30
 scale = Vector2(230.75, 230.75)
 texture = ExtResource("5_1sk22")
 
@@ -158,9 +162,57 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_ox613")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h3gvx")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wu65w")
 
+[node name="Death Screen" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("14_rsml0")
+
+[node name="Death Screen" type="Control" parent="Death Screen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Death Screen/Death Screen"]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 1171.0
+offset_bottom = 667.0
+color = Color(0, 0, 0, 0.431373)
+
+[node name="CenterContainer" type="CenterContainer" parent="Death Screen/Death Screen"]
+layout_mode = 0
+offset_top = -2.0
+offset_right = 1154.0
+offset_bottom = 645.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Death Screen/Death Screen/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Death Screen/Death Screen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("9_hpbe5")
+theme_override_font_sizes/font_size = 90
+text = "Game Over"
+
+[node name="home" type="TextureButton" parent="Death Screen"]
+offset_left = 549.0
+offset_top = 431.0
+offset_right = 620.0
+offset_bottom = 502.0
+texture_normal = ExtResource("15_y236a")
+texture_pressed = ExtResource("15_y236a")
+texture_hover = ExtResource("15_y236a")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_ayd3j")
 
 [connection signal="pressed" from="CanvasLayer/Pause Button" to="CanvasLayer/Pause Screen" method="_on_pause_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/TextureButton" to="." method="_on_texture_button_button_down"]
 [connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Screen/Button" to="CanvasLayer/Pause Screen" method="_on_button_pressed"]
+[connection signal="pressed" from="Death Screen/home" to="Death Screen" method="_on_home_pressed"]

@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpi5x0ne7qpcy"]
+[gd_scene load_steps=6 format=3 uid="uid://cpi5x0ne7qpcy"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player/player_gun.gd" id="2_36y01"]
+[ext_resource type="PackedScene" uid="uid://bgjple5obo3lf" path="res://scenes/prefabs/player/player_trilaser.tscn" id="2_hh3ce"]
 [ext_resource type="PackedScene" uid="uid://dx3ktc07wpd1k" path="res://scenes/prefabs/player/player_laser.tscn" id="2_i5bq6"]
 [ext_resource type="PackedScene" uid="uid://voc7lb53ydtf" path="res://scenes/prefabs/player/player_spike.tscn" id="2_l4kaj"]
 [ext_resource type="AudioStream" uid="uid://c7154ptexjyqy" path="res://audio/laserShoot.wav" id="4_racm0"]
 
 [node name="Player Gun" type="Sprite2D"]
 script = ExtResource("2_36y01")
+
+[node name="Trilaser" parent="." instance=ExtResource("2_hh3ce")]
+visible = false
 
 [node name="Laser" parent="." instance=ExtResource("2_i5bq6")]
 visible = false

@@ -21,7 +21,7 @@ func _process(delta):
 	if not GlobalVariables.start_game: return
 	
 	# initiate shooting every n seconds
-	if time <= 0 and (GlobalVariables.current_weapon == "" or GlobalVariables.current_weapon == "PentaGun"):
+	if time <= 0 and (GlobalVariables.current_weapon == "Default" or GlobalVariables.current_weapon == "PentaGun"):
 		_shoot()
 		@warning_ignore("narrowing_conversion")
 		time = start_time
@@ -43,7 +43,7 @@ func _shoot():
 		var angles := [-75, -45, 0, 45, 75]
 		for angle in angles:
 			var new_bullet: CharacterBody2D = bullet.instantiate()
-			new_bullet.scale = Vector2.ONE * 0.5
+			new_bullet.scale = Vector2.ONE * 0.7
 			new_bullet.global_position = global_position
 			new_bullet.rotation_degrees = angle
 			get_parent().get_parent().add_child(new_bullet)

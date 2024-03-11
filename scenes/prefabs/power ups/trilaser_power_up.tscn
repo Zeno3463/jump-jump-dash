@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://hhm45quecrra"]
+
+[ext_resource type="Script" path="res://scripts/prefabs/power_ups/power_up.gd" id="1_8xa2n"]
+[ext_resource type="Texture2D" uid="uid://dbokqiipm72u5" path="res://sprites/power ups/trilaser.png" id="2_77ya2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0g6oc"]
+radius = 10.0222
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m4w2t"]
+radius = 18.6786
+
+[node name="Trilaser Power Up" type="StaticBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_8xa2n")
+weapon = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0746667, 0.0746667)
+texture = ExtResource("2_77ya2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0g6oc")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_m4w2t")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://coiwn7v8rde1u"]
+[gd_scene load_steps=41 format=3 uid="uid://coiwn7v8rde1u"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://rplh3floshr" path="res://scenes/prefabs/enemies/speed_enemy.tscn" id="14_f2hyh"]
 [ext_resource type="Texture2D" uid="uid://8va4no2easls" path="res://sprites/parallax background/background.png" id="14_n57s8"]
 [ext_resource type="PackedScene" uid="uid://crq8v116euc7" path="res://scenes/prefabs/power ups/spike_power_up.tscn" id="15_dweuu"]
+[ext_resource type="PackedScene" uid="uid://bdvpi35n1an6" path="res://scenes/prefabs/power ups/default_power_up.tscn" id="16_2napy"]
+[ext_resource type="PackedScene" uid="uid://hhm45quecrra" path="res://scenes/prefabs/power ups/trilaser_power_up.tscn" id="17_epj1b"]
 [ext_resource type="Script" path="res://scripts/game loop/Start Scene.gd" id="20_bubng"]
 [ext_resource type="Script" path="res://scripts/UI/Default.gd" id="21_lvg52"]
 [ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="21_u2ji1"]
@@ -83,7 +85,7 @@ parallax_multiplier = 50.0
 
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource("4_bisks")
-moving_platforms = Array[PackedScene]([ExtResource("2_f2fxy"), ExtResource("3_oljps"), ExtResource("4_712a7"), ExtResource("5_vyi40"), ExtResource("6_lrerv"), ExtResource("7_52107"), ExtResource("9_x0xcv"), ExtResource("9_x0xcv"), ExtResource("12_fu2ev"), ExtResource("13_77xn6"), ExtResource("14_f2hyh"), ExtResource("15_dweuu"), ExtResource("14_f2hyh"), ExtResource("14_f2hyh"), ExtResource("9_x0xcv"), ExtResource("5_vyi40"), ExtResource("7_52107"), ExtResource("14_f2hyh"), ExtResource("4_712a7")])
+moving_platforms = Array[PackedScene]([ExtResource("2_f2fxy"), ExtResource("3_oljps"), ExtResource("4_712a7"), ExtResource("5_vyi40"), ExtResource("6_lrerv"), ExtResource("7_52107"), ExtResource("9_x0xcv"), ExtResource("9_x0xcv"), ExtResource("12_fu2ev"), ExtResource("13_77xn6"), ExtResource("14_f2hyh"), ExtResource("15_dweuu"), ExtResource("14_f2hyh"), ExtResource("14_f2hyh"), ExtResource("9_x0xcv"), ExtResource("5_vyi40"), ExtResource("7_52107"), ExtResource("14_f2hyh"), ExtResource("4_712a7"), ExtResource("16_2napy"), ExtResource("17_epj1b")])
 
 [node name="Upper bound" type="Node2D" parent="Spawner"]
 position = Vector2(654, -326)
@@ -95,6 +97,7 @@ position = Vector2(659, 166)
 position = Vector2(1, 249)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+z_index = 20
 position = Vector2(0, 47.3355)
 scale = Vector2(163.25, 16.4169)
 texture = ExtResource("1_cppkc")
@@ -124,7 +127,7 @@ scale_amount_curve = SubResource("Curve_geb0e")
 color = Color(0.207843, 0.207843, 0.207843, 0.454902)
 
 [node name="Player" parent="." instance=ExtResource("4_eg2rf")]
-position = Vector2(-1, 148)
+position = Vector2(-248, 148)
 
 [node name="Player Gun" parent="Player" instance=ExtResource("9_7nt0q")]
 start_time = 15.0

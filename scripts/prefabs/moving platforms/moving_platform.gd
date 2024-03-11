@@ -10,6 +10,7 @@ class_name MovingPlatforms
 ### VARIABLES ###
 @onready var original_color = get_node("Sprite2D").modulate
 @onready var enemy_damage_particle = preload("res://scenes/effects/enemy_damage_particle.tscn")
+@onready var plus_1_particle = preload("res://scenes/effects/+1_particle.tscn")
 @onready var life = enemy_life
 
 ### SYSTEM FUNCTIONS ###
@@ -46,6 +47,11 @@ func take_damage():
 	
 	# if the enemy has no life, destroy the enemy
 	if life == 0:
+		var p1 = plus_1_particle.instantiate()
+		p1.global_position = global_position
+		get_parent().add_child(p1)
+		p1.emitting = true
+		
 		GlobalVariables.coins += 1
 		await audio_player.finished
 		queue_free()

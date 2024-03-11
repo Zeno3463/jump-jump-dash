@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cff1abvg5vx0w"]
+
+[ext_resource type="Texture2D" uid="uid://4cho8r3t8aio" path="res://sprites/UI/+1.png" id="1_xtwqs"]
+
+[sub_resource type="Curve" id="Curve_e4f8t"]
+_data = [Vector2(0, 0.558719), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_a6qt2"]
+offsets = PackedFloat32Array(0.150442, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[node name="+1 Particle" type="CPUParticles2D"]
+emitting = false
+amount = 1
+one_shot = true
+texture = ExtResource("1_xtwqs")
+gravity = Vector2(0, -980)
+scale_amount_min = 0.3
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_e4f8t")
+color_ramp = SubResource("Gradient_a6qt2")

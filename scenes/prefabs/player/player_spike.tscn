@@ -11,7 +11,7 @@ script = ExtResource("1_hntid")
 is_spike = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.462745, 0.0627451, 0.192157, 0.898039)
+modulate = Color(0.298039, 0.298039, 0.298039, 0.898039)
 scale = Vector2(0.161224, 0.161224)
 texture = ExtResource("2_5kn7u")
 
