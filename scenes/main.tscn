@@ -152,17 +152,25 @@ script = ExtResource("20_bubng")
 
 [node name="Default" type="Control" parent="Start Scene"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("21_lvg52")
 
 [node name="ColorRect" type="ColorRect" parent="Start Scene/Default"]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 1171.0
-offset_bottom = 667.0
+offset_left = -1056.0
+offset_top = -620.0
+offset_right = 2204.0
+offset_bottom = 1264.0
 color = Color(0, 0, 0, 0.431373)
 
 [node name="CenterContainer" type="CenterContainer" parent="Start Scene/Default"]
@@ -206,8 +214,10 @@ text = "Press anywhere to start"
 
 [node name="Button" type="Button" parent="Start Scene/Default"]
 layout_mode = 0
-offset_right = 1155.0
-offset_bottom = 648.0
+offset_left = -601.0
+offset_top = -337.0
+offset_right = 1755.0
+offset_bottom = 985.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nty8d")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1vvuc")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_glywh")
@@ -270,18 +280,26 @@ stretch_mode = 0
 [node name="Shop" type="Control" parent="Start Scene"]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("26_pwdru")
 
 [node name="ColorRect" type="ColorRect" parent="Start Scene/Shop"]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 1171.0
-offset_bottom = 667.0
+offset_left = -700.0
+offset_top = -414.0
+offset_right = 1847.0
+offset_bottom = 1058.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.431373)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bsku70rqhvndp"]
+[gd_scene load_steps=24 format=3 uid="uid://bsku70rqhvndp"]
 
 [ext_resource type="Script" path="res://scripts/prefabs/player/player.gd" id="1_i8wi2"]
 [ext_resource type="PackedScene" uid="uid://bok6rotoprji7" path="res://scenes/effects/player_dash_particle.tscn" id="2_jpc82"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/game loop/Pause Screen.gd" id="9_dry52"]
 [ext_resource type="FontFile" uid="uid://ljgu2xk3bw4t" path="res://fonts/Orbitron-Black.ttf" id="9_hpbe5"]
 [ext_resource type="FontFile" uid="uid://6g4o1es28dpa" path="res://fonts/Orbitron-Regular.ttf" id="10_pub22"]
+[ext_resource type="Texture2D" uid="uid://b746kolkhp2b1" path="res://sprites/UI/heart.png" id="11_q83u0"]
 [ext_resource type="AudioStream" uid="uid://bem1vtl5khqx" path="res://audio/click.wav" id="13_ayd3j"]
 [ext_resource type="Script" path="res://scripts/UI/Death Screen.gd" id="14_rsml0"]
 [ext_resource type="Texture2D" uid="uid://dmupd34ibjy8w" path="res://sprites/UI/home.png" id="15_y236a"]
@@ -75,12 +76,13 @@ scale = Vector2(1.375, 1.375)
 texture = ExtResource("5_1sk22")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="Pause Button" type="TextureButton" parent="CanvasLayer"]
-offset_left = 1087.0
-offset_top = 14.0
-offset_right = 1126.0
-offset_bottom = 54.0
+offset_left = 473.0
+offset_top = -323.0
+offset_right = 539.0
+offset_bottom = -257.0
 texture_normal = ExtResource("7_qpdh1")
 texture_pressed = ExtResource("7_qpdh1")
 texture_hover = ExtResource("7_qpdh1")
@@ -88,42 +90,46 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
-offset_left = 75.0
-offset_top = 512.0
-offset_right = 163.0
-offset_bottom = 600.0
+offset_left = -552.0
+offset_top = 179.0
+offset_right = -432.0
+offset_bottom = 299.0
 texture_normal = ExtResource("7_x08hq")
 texture_pressed = ExtResource("8_hklmh")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_left = 551.0
-offset_top = 5.0
-offset_right = 653.0
-offset_bottom = 107.0
+offset_left = -29.0
+offset_top = -316.0
+offset_right = 27.0
+offset_bottom = -260.0
 expand_mode = 1
 
 [node name="Hearts" type="HBoxContainer" parent="CanvasLayer"]
-offset_left = 29.0
-offset_top = 14.0
-offset_right = 29.0
-offset_bottom = 54.0
+custom_minimum_size = Vector2(50, 50)
+offset_left = -528.0
+offset_top = -315.0
+offset_right = -478.0
+offset_bottom = -265.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Hearts"]
+layout_mode = 2
+texture = ExtResource("11_q83u0")
+expand_mode = 2
 
 [node name="Pause Screen" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("9_dry52")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Pause Screen"]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 1171.0
-offset_bottom = 667.0
+offset_left = -644.0
+offset_top = -382.0
+offset_right = 1792.0
+offset_bottom = 1026.0
 color = Color(0, 0, 0, 0.431373)
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Pause Screen"]
@@ -154,10 +160,10 @@ text = "Press anywhere to continue"
 [node name="Button" type="Button" parent="CanvasLayer/Pause Screen"]
 process_mode = 3
 layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 1157.0
-offset_bottom = 650.0
+offset_left = -900.0
+offset_top = -504.0
+offset_right = 2059.0
+offset_bottom = 1156.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ox613")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h3gvx")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_wu65w")
@@ -168,17 +174,25 @@ script = ExtResource("14_rsml0")
 
 [node name="Death Screen" type="Control" parent="Death Screen"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Death Screen/Death Screen"]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 1171.0
-offset_bottom = 667.0
+offset_left = -696.0
+offset_top = -412.0
+offset_right = 1844.0
+offset_bottom = 1056.0
 color = Color(0, 0, 0, 0.431373)
 
 [node name="CenterContainer" type="CenterContainer" parent="Death Screen/Death Screen"]
