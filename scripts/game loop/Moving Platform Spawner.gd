@@ -13,6 +13,8 @@ var time = 0
 func _process(delta):
 	if not GlobalVariables.start_game: return
 	
+	GlobalVariables.total_time += delta * GlobalVariables.time_scale
+	
 	# spawn a moving platform every n seconds
 	if time <= 0:
 		_spawn_platform()

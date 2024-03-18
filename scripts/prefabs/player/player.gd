@@ -89,6 +89,9 @@ func _process(_delta):
 		
 		# speed up the time to the original speed of time
 		GlobalVariables.time_scale = GlobalVariables.max_time_scale
+	
+	$"Death Screen/Death Screen/CenterContainer/VBoxContainer/Distance".text = "Time alive: " + str(snapped(GlobalVariables.total_time, 0.01))
+	$"Death Screen/Death Screen/CenterContainer/VBoxContainer/Enemies Killed".text = "Enemies killed: " + str(GlobalVariables.total_enemy_killed)
 
 func _physics_process(delta):
 	if not GlobalVariables.start_game: return
@@ -148,7 +151,7 @@ func take_damage():
 func _die():
 	GlobalVariables.save_game()
 	GlobalVariables.start_game = false
-	
+
 	get_parent().get_node("Camera2D").shake(150, 5, 150)
 	
 	$WhiteSquare.visible = false

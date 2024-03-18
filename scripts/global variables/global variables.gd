@@ -7,6 +7,8 @@ var start_game = false
 var max_time_scale = 1
 var slowed_down_time_scale = 0.7
 var time_scale = 1
+@onready var total_time = 0
+@onready var total_enemy_killed = 0
 
 ### Current Weapon ###
 var current_weapon := "Default"
@@ -26,6 +28,15 @@ var selected_items = {
 	EnemyColor = "(0.161, 0.427, 0.463, 1)",
 	BackgroundColor = "(0.992, 0.8, 0.667, 1)"
 }
+
+### High Score System ###
+# entry.588247483 - Name
+# entry.889338148 - Distance
+# entry.181793974 - Enemies Killed
+const url_data = "https://opensheet.elk.sh/15qjV6ev1R-n9wT-KNXIAOasz1ELyXnjgakt4zQWxPkY/Data"
+const url_submit = "https://docs.google.com/forms/u/2/d/e/1FAIpQLScpJz6xoqXl5ryKhOMRmaVJPKmRMbbdXJsRqkDVRJjxRU30dg/formResponse"
+const headers = ["Content-Type: application/x-www-form-urlencoded"]
+var client = HTTPClient.new()
 
 ### System Functions ###
 func _ready():
@@ -75,4 +86,19 @@ func get_color(target: String) -> Color:
 		var col = selected_items[target].replace(" ", "").replace("(", "").replace(")", "").split(",")
 		return Color(float(col[0]),float(col[1]),float(col[2]),float(col[3]))
 
+func add_high_score(n: String):
+	var http = HTTPRequest.new()
+	http.connect("request_completed", self.http_submit.bind(http))
+	add_child(http)
+	
+	var user_data = client.query_string_from_dict({
+		"entry.588247483": n,
+		"entry.889338148": snapped(total_time, 0.01),
+		"entry.181793974": total_enemy_killed
+	})
+	var err = http.request(url_submit, headers, HTTPClient.METHOD_POST, user_data)
+	if err: http.queue_free()
+	else: print("sent")
 
+func http_submit(_results, _response_code, _headers, _body, http):
+	http.queue_free()

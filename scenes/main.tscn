@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://coiwn7v8rde1u"]
+[gd_scene load_steps=42 format=3 uid="uid://coiwn7v8rde1u"]
 
 [ext_resource type="Script" path="res://scripts/effects/screen shake.gd" id="1_bb0av"]
 [ext_resource type="Texture2D" uid="uid://oux06dxfp1a2" path="res://sprites/White Square.png" id="1_cppkc"]
@@ -30,7 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://b05bnkeap65bp" path="res://sprites/UI/settings.png" id="25_ajjq8"]
 [ext_resource type="PackedScene" uid="uid://6vctaccvfrt" path="res://scenes/UI/shop_item.tscn" id="26_boyvy"]
 [ext_resource type="Script" path="res://scripts/UI/Shop.gd" id="26_pwdru"]
-[ext_resource type="Texture2D" uid="uid://c7wykyer1q5ng" path="res://sprites/UI/preference.png" id="26_u8sjw"]
+[ext_resource type="Texture2D" uid="uid://dx56ony15b02a" path="res://sprites/UI/bar-chart.png" id="29_tm4ix"]
+[ext_resource type="Script" path="res://scripts/UI/Leaderboard.gd" id="30_gwolk"]
 [ext_resource type="Texture2D" uid="uid://dqg3f6qua71j1" path="res://sprites/UI/cross.png" id="30_j8uac"]
 [ext_resource type="Texture2D" uid="uid://dm70tfl72ftw8" path="res://icon.svg" id="31_j4kds"]
 
@@ -265,17 +266,120 @@ texture_hover = ExtResource("25_ajjq8")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Settings" type="TextureButton" parent="Start Scene/Default/Menu"]
+[node name="Leaderboard" type="TextureButton" parent="Start Scene/Default/Menu"]
 layout_mode = 0
 offset_left = 1057.0
 offset_top = 571.0
 offset_right = 1114.0
 offset_bottom = 628.0
-texture_normal = ExtResource("26_u8sjw")
-texture_pressed = ExtResource("26_u8sjw")
-texture_hover = ExtResource("26_u8sjw")
+texture_normal = ExtResource("29_tm4ix")
+texture_pressed = ExtResource("29_tm4ix")
+texture_hover = ExtResource("29_tm4ix")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="Leaderboard" type="Control" parent="Start Scene"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("30_gwolk")
+
+[node name="ColorRect" type="ColorRect" parent="Start Scene/Leaderboard"]
+layout_mode = 0
+offset_left = -1056.0
+offset_top = -620.0
+offset_right = 2204.0
+offset_bottom = 1264.0
+color = Color(0, 0, 0, 0.431373)
+
+[node name="CenterContainer" type="CenterContainer" parent="Start Scene/Leaderboard"]
+layout_mode = 0
+offset_top = -204.0
+offset_right = 1154.0
+offset_bottom = 443.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start Scene/Leaderboard/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Start Scene/Leaderboard/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.8, 0.666667, 1)
+theme_override_fonts/font = ExtResource("21_u2ji1")
+theme_override_font_sizes/font_size = 90
+text = "Leaderboard"
+
+[node name="Label" type="Label" parent="Start Scene/Leaderboard"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TextureButton" type="TextureButton" parent="Start Scene/Leaderboard"]
+modulate = Color(0.807843, 0.807843, 0.807843, 1)
+offset_left = 1073.0
+offset_top = 24.0
+offset_right = 1123.0
+offset_bottom = 74.0
+texture_normal = ExtResource("30_j8uac")
+texture_pressed = ExtResource("30_j8uac")
+texture_hover = ExtResource("30_j8uac")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer2" type="CenterContainer" parent="Start Scene/Leaderboard"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 14.0
+offset_right = -16.0
+offset_bottom = 54.0
+
+[node name="Control" type="Control" parent="Start Scene/Leaderboard/CenterContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Start Scene/Leaderboard/CenterContainer2/Control"]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 155.0
+offset_right = 524.0
+offset_bottom = 184.0
+theme_override_fonts/font = ExtResource("23_xc26k")
+theme_override_font_sizes/font_size = 20
+text = "Longest Time Alive"
+
+[node name="Label2" type="Label" parent="Start Scene/Leaderboard/CenterContainer2/Control"]
+layout_mode = 0
+offset_left = 692.0
+offset_top = 155.0
+offset_right = 914.0
+offset_bottom = 184.0
+theme_override_fonts/font = ExtResource("23_xc26k")
+theme_override_font_sizes/font_size = 20
+text = "Most Enemies Killed"
+
+[node name="Time Alive" type="VBoxContainer" parent="Start Scene/Leaderboard/CenterContainer2/Control"]
+layout_mode = 0
+offset_left = 283.0
+offset_top = 186.0
+offset_right = 323.0
+offset_bottom = 226.0
+theme_override_constants/separation = 30
+
+[node name="Enemies Killed" type="VBoxContainer" parent="Start Scene/Leaderboard/CenterContainer2/Control"]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 186.0
+offset_right = 702.0
+offset_bottom = 226.0
+theme_override_constants/separation = 30
 
 [node name="Shop" type="Control" parent="Start Scene"]
 visible = false
@@ -505,6 +609,7 @@ texture_normal = ExtResource("31_j4kds")
 
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="pressed" from="Start Scene/Default/Button" to="Start Scene" method="_on_button_pressed"]
+[connection signal="pressed" from="Start Scene/Leaderboard/TextureButton" to="Start Scene/Leaderboard" method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Start Scene/Shop/CenterContainer2/Button" to="Start Scene/Shop" method="_on_purchase_button_pressed"]
 [connection signal="pressed" from="Start Scene/Shop/TextureButton" to="Start Scene/Shop" method="_on_texture_button_pressed"]
 [connection signal="pressed" from="Start Scene/TextureButton" to="Start Scene" method="_on_texture_button_pressed"]

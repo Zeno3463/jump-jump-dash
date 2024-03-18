@@ -59,6 +59,7 @@ func take_damage():
 		p1.emitting = true
 		
 		GlobalVariables.coins += 1
+		GlobalVariables.total_enemy_killed += 1
 		await  audio_player.finished
 		queue_free()
 		return
